@@ -15,20 +15,9 @@ var stage, pauseCircle, goCircle, output;
 			world.addChild(wl2);
 			stage.addChild(world);
 			
-			//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
-			//Lisää EaselJS spritesheeteistä http://createjs.com/Docs/EaselJS/classes/SpriteSheet.html
-			 var data = {
-			 	//Framerate animaatiolle, myös yksittäisille actioneille (kuten climb) voi vielä asettaa oman nopeuden
-			 	 framerate:10,
-				 images: ["climber.png"],
-				 frames: {width:35, height:50},
-				 animations: {climb:[0,4]}
-			 };
-			 var spriteSheet = new createjs.SpriteSheet(data);
-			 var player = new createjs.Sprite(spriteSheet, "climb");
-			player.x=10;
-			player.y=10;
-			wl2.addChild(player);
+			//Luodaan pelaaja: 1 elämä, positio (10,10)
+			player = new Player(1, 10, 10);
+			wl2.addChild(player.sprite);
 			//stage.addChild(goCircle);
 
 			// and register our main listener
@@ -45,7 +34,7 @@ var stage, pauseCircle, goCircle, output;
                 
                 
             }
-			
+			player.move(); // Very important also!!
 			stage.update(event); // important!!
 		}
 		
@@ -54,3 +43,88 @@ var stage, pauseCircle, goCircle, output;
 			createjs.Ticker.setPaused(paused);
 			document.getElementById("pauseBtn").value = paused ? "unpause" : "pause";
 		}*/
+		
+		
+	KEYCODE_LEFT = 37;
+	KEYCODE_RIGHT= 39;
+	KEYCODE_UP=38;
+	KEYCODE_DOWN=40;
+	LEFT_DOWN=false;
+	RIGHT_DOWN=false;
+	DOWN_DOWN=false;
+	UP_DOWN=false;
+		
+	$(document).keydown(function(e) {
+
+		if (e.keyCode == KEYCODE_LEFT) {
+			e.preventDefault();
+			//console.log("left");
+			LEFT_DOWN = true;
+			player.dx = -1;
+		}
+		if (e.keyCode == KEYCODE_RIGHT) {
+			e.preventDefault();
+			//console.log("right");
+			RIGHT_DOWN = true;
+			player.dx = 1;
+		}
+		if (e.keyCode == KEYCODE_UP) {
+			e.preventDefault();
+			//console.log("up");
+			UP_DOWN = true;
+			player.dy = -1;
+		}
+		if (e.keyCode == KEYCODE_DOWN) {
+			e.preventDefault();
+			//console.log("down");
+			DOWN_DOWN = true;
+			player.dy = 1;
+		}
+	});
+
+	$(document).keyup(function(e) {
+		if (e.keyCode == KEYCODE_LEFT) {
+			e.preventDefault();
+			//check if player has pressed also right
+			if( RIGHT_DOWN ){
+				player.dx = 1;
+			}
+			else{
+				player.dx = 0;	
+			}
+			LEFT_DOWN = false;
+		}
+		if (e.keyCode == KEYCODE_RIGHT) {
+			e.preventDefault();
+			//check if player has pressed also left
+			if( LEFT_DOWN ){
+				player.dx = -1;
+			}
+			else{
+				player.dx = 0;	
+			}
+			RIGHT_DOWN = false;
+		}
+		if (e.keyCode == KEYCODE_UP) {
+			e.preventDefault();
+			//check if player has pressed also down
+			if( DOWN_DOWN ){
+				player.dy = 1;
+			}
+			else{
+				player.dy = 0;	
+			}
+			UP_DOWN = false;
+		}
+		if (e.keyCode == KEYCODE_DOWN) {
+			e.preventDefault();
+			//check if player has pressed also up
+			if( UP_DOWN ){
+				player.dy = -1;
+			}
+			else{
+				player.dy = 0;	
+			}
+			DOWN_DOWN = false;
+		}
+	});
