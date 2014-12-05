@@ -3,9 +3,9 @@ function Player(lives, x, y) {
 	this.dy=0;
 	//Rajat missä pelkästään tausta alkaa liikkua
 	this.xleft=10;
-	this.xright=200;
+	this.xright=370;
 	this.ytop=10;
-	this.ybottom=100;
+	this.ybottom=570;
 	this.speed=3;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
@@ -27,7 +27,9 @@ function Player(lives, x, y) {
 	this.sprite = new createjs.Sprite(spriteSheet, "climb_vertical");
 	this.sprite.snapToPixel=true;
 	this.sprite.play();
-	this.sprite.x=100;
+	//Mennään annettuun paikkaan
+	this.sprite.x=x;
+	this.sprite.y=y;
 }
 
 Player.prototype.move					= function(){

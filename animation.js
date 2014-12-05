@@ -1,4 +1,8 @@
 var stage, pauseCircle, goCircle, output;
+var items=[];
+WIDTH=400;
+HEIGHT=600;
+GRAVITY=5;
 
 		function init() {
 			stage = new createjs.Stage("game");
@@ -16,15 +20,23 @@ var stage, pauseCircle, goCircle, output;
 			stage.addChild(world);
 			
 			//Luodaan pelaaja: 1 elämä, positio (10,10)
-			player = new Player(1, 10, 10);
+			player = new Player(1, 170, 550);
 			wl2.addChild(player.sprite);
 			
+			//Tehään läpällä heti kivi. Nyt kivi lisää intensä world layer kakkoseen konstruktorissa. Toinen mahdollisuus olisi luoda initissä "item"-container johon itemmit aina lisäisivät itsensä. Se auttais konsistentimmassa piirtämisjärjestyksessä.
+			stone= new Item(100, wl2);
+			items.push(stone);
 			//Luodaan eka taso. Normisti mentäs varmaan jonku valikon kautta.
 			stage1 = new Level("testitausta.png", 100);
 			currentStage = stage1;
 			wl1.addChild(stage1.bg);
 			//stage.addChild(goCircle);
-
+			
+			//SCore!
+			score = new createjs.Text("yolo", "36px Arial", "#ffffff");
+			score.x = 10;
+			score.y=10; 
+			wl2.addChild(score);
 			// and register our main listener
 			createjs.Ticker.on("tick", tick);
 
@@ -40,8 +52,20 @@ var stage, pauseCircle, goCircle, output;
                 
             }
             currentStage.move();
+            //Lista itemmejä jotka kaikki updatetaan.
+            for(i=0; i<items.length; i++) {
+            	items[i].update();
+            }
 			player.move(); // Very important also!!
 			stage.update(event); // important!!
+			//Korkeus/pisteet. Aika vaikee lasku. Pitäis vielä lisätä alotus offset (150)
+			score.text=-player.sprite.y+currentStage.bg.y+currentStage.bg.image.height + "m";
+			
+			
+			//Randomisti lisätään kivi 1% todnäk
+			if (Math.random()>0.99)
+				items.push(new Item(Math.random()*WIDTH, wl2))
+			
 		}
 		
 		/*function togglePause() {
