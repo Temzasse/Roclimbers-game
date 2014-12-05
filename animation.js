@@ -18,6 +18,11 @@ var stage, pauseCircle, goCircle, output;
 			//Luodaan pelaaja: 1 elämä, positio (10,10)
 			player = new Player(1, 10, 10);
 			wl2.addChild(player.sprite);
+			
+			//Luodaan eka taso. Normisti mentäs varmaan jonku valikon kautta.
+			stage1 = new Level("testitausta.png", 100);
+			currentStage = stage1;
+			wl1.addChild(stage1.bg);
 			//stage.addChild(goCircle);
 
 			// and register our main listener
@@ -34,6 +39,7 @@ var stage, pauseCircle, goCircle, output;
                 
                 
             }
+            currentStage.move();
 			player.move(); // Very important also!!
 			stage.update(event); // important!!
 		}

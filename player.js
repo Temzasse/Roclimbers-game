@@ -1,6 +1,11 @@
 function Player(lives, x, y) {
 	this.dx=0;
 	this.dy=0;
+	//Rajat missä pelkästään tausta alkaa liikkua
+	this.xleft=10;
+	this.xright=200;
+	this.ytop=10;
+	this.ybottom=100;
 	this.speed=3;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
@@ -55,6 +60,10 @@ Player.prototype.move					= function(){
 		this.sprite.gotoAndPlay("stationary");
 		this.sprite.paused=false;
 	}
-	this.sprite.x += this.dx*this.speed;
-	this.sprite.y += this.dy*this.speed;
+	//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
+	if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0))
+		this.sprite.x += this.dx*this.speed;
+	//Sama ylös/alas liikkeelle
+	if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom))	
+		this.sprite.y += this.dy*this.speed;
 }
