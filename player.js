@@ -12,9 +12,9 @@ function Player(lives, x, y) {
 		 frames: {width:35, height:50},
 		 //Tässä erilaisia animaatioita. Jostain syystä ne ei toimi :(
 		 animations: {
-		 	climb_vertical: [2,3], 
-		 	climb_left: { frames: [3,4] }, 
-		 	climb_right: { frames: [2,5]}, 
+		 	climb_vertical: [1,2], 
+		 	climb_left: { frames: [2,3,4] }, 
+		 	climb_right: { frames: [1,3,4]}, 
 		 	stationary: 0 
 		 }
 	 };
@@ -29,20 +29,26 @@ Player.prototype.move					= function(){
 	// going sideways
 	if( this.dy === 0 && this.dx !== 0){
 		this.sprite.paused=false;
-		if (this.dx<0)
-			this.sprite.gotoAndPlay("climb_left");
-		else
-			this.sprite.gotoAndPlay("climb_right");
+		if (this.dx<0) {
+			if (this.sprite.currentAnimation != "climb_left")
+				this.sprite.gotoAndPlay("climb_left");
+		}		
+		else {
+			if (this.sprite.currentAnimation != "climb_right")
+				this.sprite.gotoAndPlay("climb_right");
+		}
 	}
 	// going up/down
 	else if( this.dx === 0 && this.dy !== 0){
 		this.sprite.paused=false;
-		this.sprite.gotoAndPlay("climb_vertical");
+		if (this.sprite.currentAnimation != "climb_vertical")
+			this.sprite.gotoAndPlay("climb_vertical");
 	}
 	// going diagonallthis.dy
 	else if( this.dy !== 0 && this.dx !== 0){
 		this.sprite.paused=false;
-		this.sprite.gotoAndPlay("climb_vertical");
+		if (this.sprite.currentAnimation != "climb_vertical")
+			this.sprite.gotoAndPlay("climb_vertical");
 	}
 	// staying still
 	else{
