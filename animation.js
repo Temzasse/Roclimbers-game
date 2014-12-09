@@ -1,7 +1,8 @@
 var stage, pauseCircle, goCircle, output;
 var items=[];
 WIDTH=400;
-HEIGHT=600;
+HEIGHT= $( window ).height();
+$("canvas").height(HEIGHT);
 GRAVITY=5;
 
 		function init() {
