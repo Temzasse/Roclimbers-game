@@ -1,6 +1,6 @@
 var stage, pauseCircle, goCircle, output;
 var items=[];
-WIDTH=400;
+WIDTH=600;
 HEIGHT= $( window ).height();
 $("canvas").height(HEIGHT);
 GRAVITY=5;
@@ -11,7 +11,9 @@ GRAVITY=5;
 			//Luodaan stageen "maailma", joka sisältää kaikki siinä olevat objektit
 			world = new createjs.Container();
 			//Järjestellään objektit layereihin.
-			//"World layer 1" Tippuvat kamat. (jää nyt tyhjäksi)
+			//"World layer 0". Taustakuva
+			wl0 = new createjs.Container();
+			//"World layer 1". Kallio seinämä
 			wl1 = new createjs.Container();
 			//"World layer 2". Pelaajaobjektit (eli oikeesti vaan yks jäbä)
 			wl2 = new createjs.Container();
@@ -28,9 +30,12 @@ GRAVITY=5;
 			stone= new Item(100, wl2);
 			items.push(stone);
 			//Luodaan eka taso. Normisti mentäs varmaan jonku valikon kautta.
-			stage1 = new Level("testitausta.png", 100);
-			currentStage = stage1;
-			wl1.addChild(stage1.bg);
+			level_1 = new Level("level_1_kallio.png", "level_1_tausta.png", 100);
+			//Tehdään vielä toinen level
+			//level_2 = new Level("level_1_kallio.png", 100);
+			currentLevel = level_1;
+			wl1.addChild(level_1.bg);
+			wl1.addChild(level_1.ga);
 			//stage.addChild(goCircle);
 			
 			//SCore!
@@ -52,7 +57,7 @@ GRAVITY=5;
                 
                 
             }
-            currentStage.move();
+            currentLevel.move();
             //Lista itemmejä jotka kaikki updatetaan.
             for(i=0; i<items.length; i++) {
             	items[i].update();
@@ -62,7 +67,7 @@ GRAVITY=5;
 			player.move(); // Very important also!!
 			stage.update(event); // important!!
 			//Korkeus/pisteet. Aika vaikee lasku. Pitäis vielä lisätä alotus offset (150)
-			score.text=-player.sprite.y+currentStage.bg.y+currentStage.bg.image.height + "m";
+			score.text=-player.sprite.y+currentLevel.bg.y+currentLevel.bg.image.height + "m";
 			
 			
 			//Randomisti lisätään kivi 1% todnäk
