@@ -48,25 +48,29 @@ Player.prototype.move					= function(){
 		if( this.dy === 0 && this.dx !== 0){
 			this.sprite.paused=false;
 			if (this.dx<0) {
-				if (this.sprite.currentAnimation != "climb_left")
+				if (this.sprite.currentAnimation != "climb_left"){
 					this.sprite.gotoAndPlay("climb_left");
+				}
 			}		
 			else {
-				if (this.sprite.currentAnimation != "climb_right")
+				if (this.sprite.currentAnimation != "climb_right"){
 					this.sprite.gotoAndPlay("climb_right");
+				}
 			}
 		}
 		// going up/down
 		else if( this.dx === 0 && this.dy !== 0){
 			this.sprite.paused=false;
-			if (this.sprite.currentAnimation != "climb_vertical")
+			if (this.sprite.currentAnimation != "climb_vertical"){
 				this.sprite.gotoAndPlay("climb_vertical");
+			}
 		}
 		// going diagonallthis.dy
 		else if( this.dy !== 0 && this.dx !== 0){
 			this.sprite.paused=false;
-			if (this.sprite.currentAnimation != "climb_vertical")
+			if (this.sprite.currentAnimation != "climb_vertical"){
 				this.sprite.gotoAndPlay("climb_vertical");
+			}
 		}
 		// staying still
 		else{
@@ -74,12 +78,13 @@ Player.prototype.move					= function(){
 			this.sprite.paused=false;
 		}
 		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
-		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0))
+		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
 			this.sprite.x += this.dx*this.speed;
+		}
 		//Sama ylös/alas liikkeelle
-		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom))	
+		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
 			this.sprite.y += this.dy*this.speed;
-			
+		}
 	}
 	//Jos pelaaja kuolee se tippuu
 	else {

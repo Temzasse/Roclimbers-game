@@ -9,13 +9,14 @@ function Level(gameArea, backgroundArea, h) {
 
 	
 	//Tallenetaan kuvan tiedot kivempiin parametreihin.
-	this.width=this.bg.image.width;
-	this.height=this.bg.image.height;
+	//this.width=this.bg.image.width;
+	this.height=HEIGHT+1200;
 	
 	//This kun taso luodaan mennään vuoren juurelle
 	this.bg.snapToPixel=true;
-	this.bg.y = this.height-HEIGHT;
-	this.ga.y = this.height-HEIGHT;
+	this.bg.y = HEIGHT - this.height;
+	this.ga.y = HEIGHT - this.height;
+	console.log(HEIGHT);
 }
 
 Level.prototype.move = function () {
