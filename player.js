@@ -1,6 +1,10 @@
 function Player(lives, x, y) {
+	//Liikkuminen
 	this.dx=0;
 	this.dy=0;
+	//lastX/Y avulla törmäily seiniin toimii paremmin, kun törmäyksen jälkeen palataan sallitulle alueelle.
+	this.lastX=0;
+	this.lastY=0;
 	//Rajat missä pelkästään tausta alkaa liikkua
 	this.xleft=10;
 	this.xright=WIDTH-30;
@@ -10,7 +14,7 @@ function Player(lives, x, y) {
 	//Onko pelaaja kuollut?
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
-	this.vel=0;
+	this.vel=0
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
 	//Lisää EaselJS spritesheeteistä http://createjs.com/Docs/EaselJS/classes/SpriteSheet.html
@@ -43,7 +47,10 @@ Player.prototype.die = function() {
 
 Player.prototype.move					= function(){
 	//Tää kaikki pätee vaan jos pelaaja on elossa.
-	if (this.dead==false) {
+	if (!(this.dead)) {
+		console.log(this.sprite.x + " " + this.sprite.y);
+		this.lastX=this.sprite.x;
+		this.lastY=this.sprite.y;
 		// going sideways
 		if( this.dy === 0 && this.dx !== 0){
 			this.sprite.paused=false;
