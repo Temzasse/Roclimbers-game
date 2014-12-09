@@ -2,7 +2,7 @@ function Level(background, h) {
 	//Scrollausnopeus.
 	this.speed=3;
 	//Koko tason korkeus, jotta tiedetään milloin peli on voitettu
-	this.height=h;
+	this.h=h;
 	this.bg = new createjs.Bitmap(background);
 	
 	//Tallenetaan kuvan tiedot kivempiin parametreihin.
@@ -11,7 +11,7 @@ function Level(background, h) {
 	
 	//This kun taso luodaan mennään vuoren juurelle
 	this.bg.snapToPixel=true;
-	this.bg.y = this.height-HEIGHT/2;
+	this.bg.y = this.height-HEIGHT;
 }
 
 Level.prototype.move = function () {

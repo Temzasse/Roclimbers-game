@@ -7,6 +7,8 @@ function Player(lives, x, y) {
 	this.ytop=10;
 	this.ybottom=HEIGHT-30;
 	this.speed=3;
+	//Onko pelaaja kuollut?
+	this.dead=false;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
 	//Lisää EaselJS spritesheeteistä http://createjs.com/Docs/EaselJS/classes/SpriteSheet.html
@@ -32,7 +34,13 @@ function Player(lives, x, y) {
 	this.sprite.y=y;
 }
 
+Player.prototype.fall = function() {
+	this.dead = true;
+		
+
 Player.prototype.move					= function(){
+	//Tää kaikki pätee vaan jos pelaaja on elossa.
+	if (!this.dead) {
 	// going sideways
 	if( this.dy === 0 && this.dx !== 0){
 		this.sprite.paused=false;
@@ -68,4 +76,5 @@ Player.prototype.move					= function(){
 	//Sama ylös/alas liikkeelle
 	if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom))	
 		this.sprite.y += this.dy*this.speed;
+	}
 }
