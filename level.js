@@ -10,6 +10,7 @@ function Level(background, h) {
 	this.height=this.bg.image.height;
 	
 	//This kun taso luodaan mennään vuoren juurelle
+	this.bg.snapToPixel=true;
 	this.bg.y = this.height-HEIGHT/2;
 }
 

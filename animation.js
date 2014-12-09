@@ -56,6 +56,8 @@ GRAVITY=5;
             //Lista itemmejä jotka kaikki updatetaan.
             for(i=0; i<items.length; i++) {
             	items[i].update();
+            	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
+            	console.log(collision);
             }
 			player.move(); // Very important also!!
 			stage.update(event); // important!!
