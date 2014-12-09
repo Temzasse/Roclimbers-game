@@ -3,9 +3,9 @@ function Player(lives, x, y) {
 	this.dy=0;
 	//Rajat missä pelkästään tausta alkaa liikkua
 	this.xleft=10;
-	this.xright=370;
+	this.xright=WIDTH-30;
 	this.ytop=10;
-	this.ybottom=570;
+	this.ybottom=HEIGHT-30;
 	this.speed=3;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
