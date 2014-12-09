@@ -36,7 +36,7 @@ function Player(lives, x, y) {
 
 Player.prototype.fall = function() {
 	this.dead = true;
-		
+}
 
 Player.prototype.move					= function(){
 	//Tää kaikki pätee vaan jos pelaaja on elossa.
