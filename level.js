@@ -28,8 +28,9 @@ Level.prototype.move = function () {
 			//for(i=0; i<items.length; i++)
 				//items[i].move(-player.dx*this.speed);
 		//}
-		if (((this.height-this.bg.y)<(HEIGHT/2)&& player.dy>0) || (this.bg.y<0 && player.dy<0)){
+		if ((((this.height-this.bg.y)<(HEIGHT/2)&& player.dy>0) || (this.bg.y<0 && player.dy<0)) && !(player.dead)){
 			// Liikuta liikkumisaluetta ja taustaa
+			this.lastY=this.bg.y;
 			this.bg.y-=player.dy*this.speed;
 			this.ga.y-=player.dy*this.speed;
 		}

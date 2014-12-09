@@ -62,11 +62,21 @@ GRAVITY=5;
             for(i=0; i<items.length; i++) {
             	items[i].update();
             	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
-            	console.log(collision);
             	if (collision !== false && !(player.dead))
             		player.die();
             }
 			player.move(); // Very important also!!
+			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu
+			//takaisin edelliseen positioonsa.
+			var collision = ndgmr.checkPixelCollision(currentLevel.bg, player.sprite, 0.75);
+			console.log(collision);
+			if (!(player.dead) && (collision !== false)) {
+				console.log("hiiohoi");
+				player.sprite.x = player.lastX;
+				player.sprite.y = player.lastY;
+				currentLevel.bg.y=currentLevel.lastY;
+				currentLevel.ga.y=currentLevel.lastY;
+			}
 			stage.update(event); // important!!
 			//Korkeus/pisteet. Aika vaikee lasku. Pitäis vielä lisätä alotus offset (150)
 			score.text=-player.sprite.y+currentLevel.bg.y+currentLevel.bg.image.height + "m";
