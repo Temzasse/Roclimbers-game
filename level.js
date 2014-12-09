@@ -14,7 +14,6 @@ function Level(background, h) {
 }
 
 Level.prototype.move = function () {
-		xy=this.center(); // xy[0] on x ja xy[1] y
 		//Jos pelialue on liian oikealla ja liikutaan vasemmalle
 		//tai liian vasemmalla ja liikutaan oikealle, se ei liiku.
 		//HEIGHT ja WIDTH määritelty animation.js:ssä ja ovat canvaksen koko.
@@ -27,11 +26,3 @@ Level.prototype.move = function () {
 		if (((this.height-this.bg.y)<(HEIGHT/2)&& player.dy>0) || (this.bg.y<0 && player.dy<0))
 			this.bg.y-=player.dy*this.speed;
 }
-
-//Palauttaa kuvan keskikohdan. Helpottaa vertailua.
-Level.prototype.center = function () {
-	x=this.bg.x+this.offsetX;
-	y=this.bg.y+this.offsetY;
-	return [x, y];
-}
-	
