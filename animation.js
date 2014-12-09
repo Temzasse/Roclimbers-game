@@ -58,6 +58,8 @@ GRAVITY=5;
             	items[i].update();
             	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
             	console.log(collision);
+            	if (collision !== false && !(player.dead))
+            		player.die();
             }
 			player.move(); // Very important also!!
 			stage.update(event); // important!!
