@@ -35,6 +35,10 @@ function Player(lives, x, y) {
 	this.sprite = new createjs.Sprite(spriteSheet, "climb_vertical");
 	this.sprite.snapToPixel=true;
 	this.sprite.play();
+	//Pyörimisen keskikohta ja kulma
+	this.sprite.regX=35/2;
+	this.sprite.regY=50/25;
+	this.sprite.rotation=0;	
 	//Mennään annettuun paikkaan
 	this.sprite.x=x;
 	this.sprite.y=y;
@@ -98,6 +102,8 @@ Player.prototype.move					= function(){
 		this.sprite.gotoAndPlay("stationary");
 		this.sprite.y+=player.vel;
 		this.vel+=GRAVITY;
+		var rotationspeed=10;
+		this.sprite.rotation+=rotationspeed;
 		//if (this.sprite.y<HEIGHT+50)
 		//	this.sprite.y+=this.vel;
 	}

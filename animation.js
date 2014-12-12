@@ -60,6 +60,11 @@ $(window).load(function(){
                 
                 
             }
+            //Lisätään kivi?
+            if (Math.random()>0.99) {
+            	stone = new Item(Math.random()*WIDTH, wl2);
+            	items.push(stone);
+            }
             currentLevel.move();
             //Lista itemmejä jotka kaikki updatetaan.
             for(i=0; i<items.length; i++) {
@@ -81,7 +86,7 @@ $(window).load(function(){
 			}
 			stage.update(event); // important!!
 			//Korkeus/pisteet. Aika vaikee lasku. Pitäis vielä lisätä alotus offset (150)
-			score.text=-player.sprite.y+currentLevel.bg.y+currentLevel.bg.image.height + "m";
+			score.text=currentLevel.getScore();
 		}
 
 			

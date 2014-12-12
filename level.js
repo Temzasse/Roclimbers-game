@@ -17,6 +17,9 @@ function Level(gameArea, backgroundArea, h) {
 	this.bg.y = HEIGHT - this.height;
 	this.ga.y = HEIGHT - this.height;
 	console.log(HEIGHT);
+	
+	//Score ei voi pienentyä. Tallennetaan max score.
+	maxScore=0;
 }
 
 Level.prototype.move = function () {
@@ -35,4 +38,11 @@ Level.prototype.move = function () {
 			this.bg.y-=player.dy*this.speed;
 			this.ga.y-=player.dy*this.speed;
 		}
+}
+
+Level.prototype.getScore = function () {
+	//Tallennetaan ennätys maxScoreen
+	maxScore = Math.max(-player.sprite.y+currentLevel.bg.y+currentLevel.bg.image.height, maxScore);
+	//Palautetaan ennätys
+	return maxScore+"m";
 }
