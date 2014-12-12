@@ -21,7 +21,7 @@ function Player(lives, x, y) {
 	 var data = {
 		//Framerate animaatiolle, myös yksittäisille actioneille (kuten climb) voi vielä asettaa oman nopeuden
 		 framerate:10,
-		 images: ["climber.png"],
+		 images: ["images/climber.png"],
 		 frames: {width:35, height:50},
 		 //Tässä erilaisia animaatioita. Jostain syystä ne ei toimi :(
 		 animations: {
