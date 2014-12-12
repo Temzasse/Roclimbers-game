@@ -52,7 +52,7 @@ Player.prototype.die = function() {
 Player.prototype.move					= function(){
 	//Tää kaikki pätee vaan jos pelaaja on elossa.
 	if (!(this.dead)) {
-		console.log(this.sprite.x + " " + this.sprite.y);
+		//console.log(this.sprite.x + " " + this.sprite.y);
 		this.lastX=this.sprite.x;
 		this.lastY=this.sprite.y;
 		// going sideways

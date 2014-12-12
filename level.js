@@ -1,22 +1,20 @@
 function Level(gameArea, backgroundArea, h) {
 	//Scrollausnopeus.
-	this.speed=3;
+	this.speed = 3;
 	//Koko tason korkeus, jotta tiedetään milloin peli on voitettu
 
 	this.ga = new createjs.Bitmap(gameArea);
 	this.bg = new createjs.Bitmap(backgroundArea);
-	this.h=h;
+	//this.h=h;
 
-	
 	//Tallenetaan kuvan tiedot kivempiin parametreihin.
 	//this.width=this.bg.image.width;
-	this.height=HEIGHT+1200;
+	this.height = 2000;
 	
 	//This kun taso luodaan mennään vuoren juurelle
-	this.bg.snapToPixel=true;
+	this.bg.snapToPixel = true;
 	this.bg.y = HEIGHT - this.height;
 	this.ga.y = HEIGHT - this.height;
-	console.log(HEIGHT);
 	
 	//Score ei voi pienentyä. Tallennetaan max score.
 	maxScore=0;
