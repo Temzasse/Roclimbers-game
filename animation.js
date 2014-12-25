@@ -26,8 +26,8 @@ $(window).load(function(){
             
         }
         if (gameStarted && !gamePaused){
-	        //Lisätään kivi?
-	        if (Math.random()>0.99) {
+	        //Lisätään kivi. Kiviä voi tippua vaan jos peli on kesken.
+	        if ((Math.random()>0.99) && !(currentLevel.won)) {
 	        	stone = new Item(Math.random()*WIDTH, wl2);
 	        	items.push(stone);
 	        }
@@ -36,8 +36,9 @@ $(window).load(function(){
 	        for(i=0; i<items.length; i++) {
 	        	items[i].update();
 	        	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
+	        	//Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
 	        	if (collision !== false && !(player.dead))
-	        		player.die();
+	        		item.crash();
 	        }
 			player.move(); // Very important also!!
 			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu
@@ -107,49 +108,52 @@ $(window).load(function(){
 	});
 
 	$(document).keyup(function(e) {
-		if (e.keyCode == KEYCODE_LEFT) {
-			e.preventDefault();
-			//check if player has pressed also right
-			if( RIGHT_DOWN ){
-				player.dx = 1;
+		//Tän avulla voidaan disablea liikkuminen, kun voittaa pelin, mutta silti hyödynnetään pelaajan perus liikkumisspritejä.
+		if (!currentLevel.moveDisabled) {
+			if (e.keyCode == KEYCODE_LEFT) {
+				e.preventDefault();
+				//check if player has pressed also right
+				if( RIGHT_DOWN ){
+					player.dx = 1;
+				}
+				else{
+					player.dx = 0;	
+				}
+				LEFT_DOWN = false;
 			}
-			else{
-				player.dx = 0;	
+			if (e.keyCode == KEYCODE_RIGHT) {
+				e.preventDefault();
+				//check if player has pressed also left
+				if( LEFT_DOWN ){
+					player.dx = -1;
+				}
+				else{
+					player.dx = 0;	
+				}
+				RIGHT_DOWN = false;
 			}
-			LEFT_DOWN = false;
-		}
-		if (e.keyCode == KEYCODE_RIGHT) {
-			e.preventDefault();
-			//check if player has pressed also left
-			if( LEFT_DOWN ){
-				player.dx = -1;
+			if (e.keyCode == KEYCODE_UP) {
+				e.preventDefault();
+				//check if player has pressed also down
+				if( DOWN_DOWN ){
+					player.dy = 1;
+				}
+				else{
+					player.dy = 0;	
+				}
+				UP_DOWN = false;
 			}
-			else{
-				player.dx = 0;	
+			if (e.keyCode == KEYCODE_DOWN) {
+				e.preventDefault();
+				//check if player has pressed also up
+				if( UP_DOWN ){
+					player.dy = -1;
+				}
+				else{
+					player.dy = 0;	
+				}
+				DOWN_DOWN = false;
 			}
-			RIGHT_DOWN = false;
-		}
-		if (e.keyCode == KEYCODE_UP) {
-			e.preventDefault();
-			//check if player has pressed also down
-			if( DOWN_DOWN ){
-				player.dy = 1;
-			}
-			else{
-				player.dy = 0;	
-			}
-			UP_DOWN = false;
-		}
-		if (e.keyCode == KEYCODE_DOWN) {
-			e.preventDefault();
-			//check if player has pressed also up
-			if( UP_DOWN ){
-				player.dy = -1;
-			}
-			else{
-				player.dy = 0;	
-			}
-			DOWN_DOWN = false;
 		}
 	});
 

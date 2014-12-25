@@ -5,7 +5,8 @@ function Level(gameArea, backgroundArea, h) {
 
 	this.ga = new createjs.Bitmap(gameArea);
 	this.bg = new createjs.Bitmap(backgroundArea);
-	//this.h=h;
+	//Tähän tallennetaan kentän voittokorkeus: esim 2000px kartassa 1900px
+	this.h=h;
 
 	//Tallenetaan kuvan tiedot kivempiin parametreihin.
 	//this.width=this.bg.image.width;
@@ -18,6 +19,10 @@ function Level(gameArea, backgroundArea, h) {
 	
 	//Score ei voi pienentyä. Tallennetaan max score.
 	maxScore=0;
+	
+	//Voittamisanimaatioon liittyvä parametri (estä manuaalinen liikkuminen)
+	this.movementDisabled=false;
+	this.won=false;
 }
 
 Level.prototype.move = function () {
@@ -41,6 +46,28 @@ Level.prototype.move = function () {
 Level.prototype.getScore = function () {
 	//Tallennetaan ennätys maxScoreen
 	maxScore = Math.max(-player.sprite.y+currentLevel.bg.y+currentLevel.bg.image.height, maxScore);
+	
+	if (maxScore > this.h) {
+		this.win()
+	}
 	//Palautetaan ennätys
 	return maxScore+"m";
+}
+
+//SCriptattu voittokävely
+//100 pixelii ylöspäin, minkä jälkeen näytetään voittoanimaatio (?? joku lipun istutus) ja sitten uusi idleanimaatio.
+Level.prototype.win = function () {
+	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
+	this.movementDisabled=true;
+	this.won=true;
+	//Eli nyt mennään ylöspäin joku tietty matka.
+	if (player.sprite.y > 50) {
+		player.dy=-1;
+		player.ytop=0;
+	}
+	//Kun se on ohi voittoanimaatio näytetään. Kutsun player.win, koska voi olla kätevintä tehdä kokonaan uusi sprite sheet jne. Playerissä voi sitten kikkailla niillä.
+	else {
+		player.dy=0;
+		player.win();
+	}
 }

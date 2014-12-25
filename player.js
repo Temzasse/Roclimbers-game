@@ -35,7 +35,7 @@ function Player(lives, x, y) {
 	this.sprite = new createjs.Sprite(spriteSheet, "climb_vertical");
 	this.sprite.snapToPixel=true;
 	this.sprite.play();
-	//Pyörimisen keskikohta ja kulma
+	//Pyörimisen keskikohta ja alkukulma
 	this.sprite.regX=35/2;
 	this.sprite.regY=50/25;
 	this.sprite.rotation=0;	
@@ -107,4 +107,8 @@ Player.prototype.move					= function(){
 		//if (this.sprite.y<HEIGHT+50)
 		//	this.sprite.y+=this.vel;
 	}
+}
+
+Player.prototype.win = function() {
+	
 }

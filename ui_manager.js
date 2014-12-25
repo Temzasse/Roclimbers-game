@@ -55,7 +55,7 @@ function createGame(){
 	stone = new Item(100, wl2);
 	items.push(stone);
 	//Luodaan eka taso. Normisti mentäs varmaan jonku valikon kautta.
-	level_1 = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 100);
+	level_1 = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 1900);
 	//Tehdään vielä toinen level
 	//level_2 = new Level("level_1_kallio.png", 100);
 	currentLevel = level_1;

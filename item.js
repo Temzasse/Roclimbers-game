@@ -44,6 +44,10 @@ Item.prototype.move = function(x) {
 	this.object.x+=x;
 }
 
+Item.prototype.crash = function () {
+	player.die();
+}
+
 //päivitysfunktio. Tänne vois lisätä myös törmäysvarmistuksen
 Item.prototype.update = function () {
 	//Onko varoitus ollut jo 3 sekuntia ja kiveä ei ole vielä tiputettu
