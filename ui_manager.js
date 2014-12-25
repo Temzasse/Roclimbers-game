@@ -1,4 +1,4 @@
-var stage, world, main_menu, paused_menu, currentLevel
+var stage, world, main_menu, paused_menu, currentLevel, selected_level
 
 WIDTH = 600;
 HEIGHT = $(window).height();
@@ -31,6 +31,7 @@ function createGame(){
 
 	// tyhjennetään itemsit
 	items = [];
+	selected_level = null;
 
 	//Luodaan stageen "maailma", joka sisältää kaikki siinä olevat objektit
 	world = new createjs.Container();
@@ -89,13 +90,13 @@ function createMenus(){
 	title.textAlign = "center";
 	title.textBaseline = "middle";
 	title.x = WIDTH/2;
-	title.y = HEIGHT*(1/6);
+	title.y = 50;
 	var sub_title = new createjs.Text("Adventure Of The Zen Mountain", "bold 18px Arial", "#fff")
 	sub_title.name = "sub_title";
 	sub_title.textAlign = "center";
 	sub_title.textBaseline = "middle";
 	sub_title.x = WIDTH/2;
-	sub_title.y = HEIGHT*(1/6)+50;
+	sub_title.y = 90;
 
 	// Napit
 	// start_game = st
@@ -112,15 +113,52 @@ function createMenus(){
 	var st_button = new createjs.Container();
 	st_button.name = "button";
 	st_button.x = ((WIDTH/2)-75);
-	st_button.y = HEIGHT*(3/6);
+	st_button.y = HEIGHT*(2/8)+(128*2)+75;
 	st_button.addChild(st_bg, st_label);
 
+	// Level valinnat
+	var choose_level_text = new createjs.Text("Choose Level", "bold 24px Arial", "#fff");
+	choose_level_text.name = "choose-level-label";
+	choose_level_text.textAlign = "center";
+	choose_level_text.textBaseline = "middle";
+	choose_level_text.x = WIDTH/2;
+	choose_level_text.y = HEIGHT*(2/8);
+
+	var lvl_1 = new createjs.Bitmap("images/level_1_thumbnail.jpg");
+	var lvl_2 = new createjs.Bitmap("images/level_2_thumbnail.jpg");
+
+	// Levelin valinta border
+	var lvl_1_stroke = new createjs.Shape();
+	var lvl_2_stroke = new createjs.Shape();
+	lvl_1_stroke.graphics.beginStroke("red").setStrokeStyle(8).beginFill("#000").drawRect(200, HEIGHT*(2/8)+25, 200, 128);
+	lvl_2_stroke.graphics.beginStroke("red").setStrokeStyle(8).beginFill("#000").drawRect(200, HEIGHT*(2/8)+128+50, 200, 128);
+	lvl_1_stroke.alpha = 0;
+	lvl_2_stroke.alpha = 0;
+
+	// Kuvan koko on 200x255
+	lvl_1.x = 200;
+	lvl_1.y = HEIGHT*(2/8)+25;
+	lvl_2.x = 200;
+	lvl_2.y = HEIGHT*(2/8)+128+50;
+
 	// lisätään Main Menu elementit
-	main_menu.addChild(menu_bg, title, sub_title, st_button);
+	main_menu.addChild(menu_bg, title, sub_title, choose_level_text, lvl_1_stroke, lvl_2_stroke, lvl_1, lvl_2, st_button);
 	stage.addChild(main_menu);
 
-	// Lisätään tapahtumakuuntelijat nappeihin
+	// Lisätään tapahtumakuuntelijat nappeihin ja thumbnaileihin
 	st_button.on("click", createGame);
+
+	lvl_1.on("click", function(){
+		selected_level = 1;
+		lvl_1_stroke.alpha = 1;
+		lvl_2_stroke.alpha = 0;
+	});
+
+	lvl_2.on("click", function(){
+		selected_level = 2;
+		lvl_2_stroke.alpha = 1;
+		lvl_1_stroke.alpha = 0;
+	});
 	// Main Menu END---------------------------------------------------
 
 
@@ -176,6 +214,10 @@ function createMenus(){
 	resume_button.on("click", showGame);
 	replay_button.on("click", createGame);
 	// Paused Menu END---------------------------------------------------
+
+	// Paused Menu END---------------------------------------------------
+
+
 
 }
 
