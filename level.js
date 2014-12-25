@@ -1,6 +1,6 @@
 function Level(gameArea, backgroundArea, h) {
 	//Scrollausnopeus.
-	this.speed = 3;
+	this.speed = 5;
 	//Koko tason korkeus, jotta tiedetään milloin peli on voitettu
 
 	this.ga = new createjs.Bitmap(gameArea);

@@ -22,12 +22,11 @@ $(window).load(function(){
 	
 		//pause
         if (!createjs.Ticker.getPaused()) {
-            console.log("paused");
-            
+            //console.log("paused");
         }
         if (gameStarted && !gamePaused){
 	        //Lisätään kivi?
-	        if (Math.random()>0.99) {
+	        if (Math.random() > difficulty) {
 	        	stone = new Item(Math.random()*WIDTH, wl2);
 	        	items.push(stone);
 	        }
@@ -38,6 +37,10 @@ $(window).load(function(){
 	        	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
 	        	if (collision !== false && !(player.dead))
 	        		player.die();
+	        }
+	        // varmista että kun tausta pysähtyy niin pelaajan näennäinen nopeus ei muutu
+	        if( currentLevel.bg.y === 0 ){
+	        	player.Yspeed = currentLevel.speed;
 	        }
 			player.move(); // Very important also!!
 			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu

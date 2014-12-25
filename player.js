@@ -10,7 +10,9 @@ function Player(lives, x, y) {
 	this.xright=WIDTH-30;
 	this.ytop=10;
 	this.ybottom=HEIGHT-30;
-	this.speed=3;
+	this.speed=2;
+	this.Xspeed=3;
+	this.Yspeed=1;
 	//Onko pelaaja kuollut?
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
@@ -44,15 +46,14 @@ function Player(lives, x, y) {
 	this.sprite.y=y;
 }
 
-Player.prototype.die = function() {
+Player.prototype.die	= function() {
 	this.dead = true;
 	this.vel=-10;
 }
 
-Player.prototype.move					= function(){
+Player.prototype.move	= function(){
 	//Tää kaikki pätee vaan jos pelaaja on elossa.
 	if (!(this.dead)) {
-		//console.log(this.sprite.x + " " + this.sprite.y);
 		this.lastX=this.sprite.x;
 		this.lastY=this.sprite.y;
 		// going sideways
@@ -90,11 +91,11 @@ Player.prototype.move					= function(){
 		}
 		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
 		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
-			this.sprite.x += this.dx*this.speed;
+			this.sprite.x += this.dx*this.Xspeed;
 		}
 		//Sama ylös/alas liikkeelle
 		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
-			this.sprite.y += this.dy*this.speed;
+			this.sprite.y += this.dy*this.Yspeed;
 		}
 	}
 	//Jos pelaaja kuolee se tippuu
