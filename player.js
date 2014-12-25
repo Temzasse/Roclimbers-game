@@ -8,9 +8,10 @@ function Player(lives, x, y) {
 	//Rajat missä pelkästään tausta alkaa liikkua
 	this.xleft=10;
 	this.xright=WIDTH-30;
-	this.ytop=10;
+	this.ytop=100;
 	this.ybottom=HEIGHT-30;
-	this.speed=3;
+	this.yspeed=1;
+	this.xspeed=3;
 	//Onko pelaaja kuollut?
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
@@ -90,11 +91,18 @@ Player.prototype.move					= function(){
 		}
 		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
 		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
-			this.sprite.x += this.dx*this.speed;
+			this.sprite.x += this.dx*this.xspeed;
 		}
 		//Sama ylös/alas liikkeelle
 		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
-			this.sprite.y += this.dy*this.speed;
+			//Eli alas mennään nopeudella kolme ja ylös nopeudella 1. Muuttaa pelidynamiikan jännittäväksi
+			if (this.dy<0) {
+				this.sprite.y += this.dy*this.yspeed;
+			}
+			else {
+				//Nyt on vähän purkka meno kun käytetään xspeedia, mutta..
+				this.sprite.y += this.dy*this.xspeed;
+			}	
 		}
 	}
 	//Jos pelaaja kuolee se tippuu

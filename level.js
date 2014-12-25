@@ -1,6 +1,6 @@
 function Level(gameArea, backgroundArea, h) {
 	//Scrollausnopeus.
-	this.speed = 3;
+	this.speed = 5;
 	//Koko tason korkeus, jotta tiedetään milloin peli on voitettu
 
 	this.ga = new createjs.Bitmap(gameArea);
@@ -37,9 +37,14 @@ Level.prototype.move = function () {
 		//}
 		if ((((this.height-this.bg.y)<(HEIGHT/2)&& player.dy>0) || (this.bg.y<0 && player.dy<0)) && !(player.dead)){
 			// Liikuta liikkumisaluetta ja taustaa
+			//Jos pelaaja on niin ylhäällä/alhaalla ettei itse liiku niin tausta liikkuu tuplanopeudella (jolloin kokonaisliiku pysyy samana riippumatta pelaajan paikasta)
 			this.lastY=this.bg.y;
 			this.bg.y-=player.dy*this.speed;
 			this.ga.y-=player.dy*this.speed;
+		}
+		//Kun saavutetaan vuoren huippu pelaajan nopeutta nostetaan.
+		else if ((this.height-this.bg.y)>=(HEIGHT/2)&& player.dy<0) {
+			player.yspeed=3;
 		}
 }
 
