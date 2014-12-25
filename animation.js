@@ -22,12 +22,12 @@ $(window).load(function(){
 	
 		//pause
         if (!createjs.Ticker.getPaused()) {
-            console.log("paused");
-            
+            //console.log("paused");
         }
         if (gameStarted && !gamePaused){
-	        //Lisätään kivi. Kiviä voi tippua vaan jos peli on kesken.
-	        if ((Math.random()>0.99) && !(currentLevel.won)) {
+
+	        //Lisätään kivi?
+	        if ( Math.random() > difficulty && !(currentLevel.won) ) {
 	        	stone = new Item(Math.random()*WIDTH, wl2);
 	        	items.push(stone);
 	        }
@@ -39,6 +39,10 @@ $(window).load(function(){
 	        	//Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
 	        	if (collision !== false && !(player.dead))
 	        		items[i].crash();
+	        }
+	        // varmista että kun tausta pysähtyy niin pelaajan näennäinen nopeus ei muutu
+	        if( currentLevel.bg.y === 0 ){
+	        	player.Yspeed = currentLevel.speed;
 	        }
 			player.move(); // Very important also!!
 			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu

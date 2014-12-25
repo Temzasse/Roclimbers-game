@@ -44,7 +44,7 @@ Level.prototype.move = function () {
 		}
 		//Kun saavutetaan vuoren huippu pelaajan nopeutta nostetaan.
 		else if ((this.height-this.bg.y)>=(HEIGHT/2)&& player.dy<0) {
-			player.yspeed=3;
+			player.Yspeed=3;
 		}
 }
 
@@ -62,6 +62,7 @@ Level.prototype.getScore = function () {
 //SCriptattu voittokävely
 //100 pixelii ylöspäin, minkä jälkeen näytetään voittoanimaatio (?? joku lipun istutus) ja sitten uusi idleanimaatio.
 Level.prototype.win = function () {
+	/* Jostain syystä peli voitetaan kokoajan.. otan tän pois kunnen saan selvitettyä miksi.
 	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
 	this.movementDisabled=true;
 	this.won=true;
@@ -75,4 +76,5 @@ Level.prototype.win = function () {
 		player.dy=0;
 		player.win();
 	}
+	*/
 }

@@ -10,12 +10,12 @@ function Player(lives, x, y) {
 	this.xright=WIDTH-30;
 	this.ytop=100;
 	this.ybottom=HEIGHT-30;
-	this.yspeed=1;
-	this.xspeed=3;
+	this.Xspeed=3;
+	this.Yspeed=1;
 	//Onko pelaaja kuollut?
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
-	this.vel=0
+	this.vel=0;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
 	//Lisää EaselJS spritesheeteistä http://createjs.com/Docs/EaselJS/classes/SpriteSheet.html
@@ -45,15 +45,14 @@ function Player(lives, x, y) {
 	this.sprite.y=y;
 }
 
-Player.prototype.die = function() {
+Player.prototype.die	= function() {
 	this.dead = true;
 	this.vel=-10;
 }
 
-Player.prototype.move					= function(){
+Player.prototype.move	= function(){
 	//Tää kaikki pätee vaan jos pelaaja on elossa.
 	if (!(this.dead)) {
-		//console.log(this.sprite.x + " " + this.sprite.y);
 		this.lastX=this.sprite.x;
 		this.lastY=this.sprite.y;
 		// going sideways
@@ -91,18 +90,18 @@ Player.prototype.move					= function(){
 		}
 		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
 		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
-			this.sprite.x += this.dx*this.xspeed;
+			this.sprite.x += this.dx*this.Xspeed;
 		}
 		//Sama ylös/alas liikkeelle
 		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
 			//Eli alas mennään nopeudella kolme ja ylös nopeudella 1. Muuttaa pelidynamiikan jännittäväksi
 			if (this.dy<0) {
-				this.sprite.y += this.dy*this.yspeed;
+				this.sprite.y += this.dy*this.Yspeed;
 			}
 			else {
 				//Nyt on vähän purkka meno kun käytetään xspeedia, mutta..
-				this.sprite.y += this.dy*this.xspeed;
-			}	
+				this.sprite.y += this.dy*this.Xspeed;
+			}
 		}
 	}
 	//Jos pelaaja kuolee se tippuu
