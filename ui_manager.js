@@ -63,7 +63,6 @@ function createGame(){
 	stone = new Item(100, wl2);
 	items.push(stone);
 
-	//console.log(selected_level);
 	if( selected_level === 1){
 		level = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 100);
 	}
@@ -74,7 +73,6 @@ function createGame(){
 	currentLevel = level;
 	wl1.addChild(level.bg);
 	wl1.addChild(level.ga);
-	//stage.addChild(goCircle);
 	
 	//Score!
 	score = new createjs.Text("yolo", "36px Arial", "#ffffff");

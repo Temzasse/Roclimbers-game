@@ -3,7 +3,6 @@ TODO:
 - pelaajan tippumien hienommaksi
 - taustan skrollaus --> nopeampi
 - pelaaja ei saa mennä alalaidasta yli
-- kivet ei toimi
 - menu
 - toinen level
 - this.height ongelma
