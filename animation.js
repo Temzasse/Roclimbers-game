@@ -38,7 +38,7 @@ $(window).load(function(){
 	        	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
 	        	//Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
 	        	if (collision !== false && !(player.dead))
-	        		item.crash();
+	        		items[i].crash();
 	        }
 			player.move(); // Very important also!!
 			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu
