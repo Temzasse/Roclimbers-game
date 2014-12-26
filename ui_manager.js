@@ -64,10 +64,11 @@ function createGame(){
 	items.push(stone);
 
 	if( selected_level === 1){
-		level = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 100);
+		//Vika parametri on nykyään voittamiskorkeus, eli esim. 100px pienempi kuin taso itse.
+		level = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 1900);
 	}
 	else if( selected_level === 2){
-		level = new Level("images/level_2_kallio.png", "images/level_2_tausta.png", 100);
+		level = new Level("images/level_2_kallio.png", "images/level_2_tausta.png", 1900);
 	}
 	
 	currentLevel = level;

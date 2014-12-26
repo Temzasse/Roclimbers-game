@@ -1,6 +1,8 @@
 function Level(gameArea, backgroundArea, h) {
 	//Scrollausnopeus.
-	this.speed = 5;
+	this.upspeed = 5;
+	//Alaspäin mennään hitaammin, jotta pelaaja tajuaa, että on tarkoitus kiivetä ylöspäin
+	this.downspeed=2;
 	//Koko tason korkeus, jotta tiedetään milloin peli on voitettu
 
 	this.ga = new createjs.Bitmap(gameArea);
@@ -35,10 +37,16 @@ Level.prototype.move = function () {
 			//for(i=0; i<items.length; i++)
 				//items[i].move(-player.dx*this.speed);
 		//}
-		if ((((this.height-this.bg.y)<(HEIGHT/2)&& player.dy>0) || (this.bg.y<0 && player.dy<0)) && !(player.dead)){
+		if ((((-this.bg.y)<(this.height-HEIGHT)&& player.dy>0) || (this.bg.y<0 && player.dy<0)) && !(player.dead)){
 			// Liikuta liikkumisaluetta ja taustaa
 			//Jos pelaaja on niin ylhäällä/alhaalla ettei itse liiku niin tausta liikkuu tuplanopeudella (jolloin kokonaisliiku pysyy samana riippumatta pelaajan paikasta)
 			this.lastY=this.bg.y;
+			if (played.dy>0) {
+				this.speed=this.downspeed;
+			}
+			else {
+				this.speed=this.upspeed;
+			}
 			this.bg.y-=player.dy*this.speed;
 			this.ga.y-=player.dy*this.speed;
 		}
@@ -62,7 +70,6 @@ Level.prototype.getScore = function () {
 //SCriptattu voittokävely
 //100 pixelii ylöspäin, minkä jälkeen näytetään voittoanimaatio (?? joku lipun istutus) ja sitten uusi idleanimaatio.
 Level.prototype.win = function () {
-	/* Jostain syystä peli voitetaan kokoajan.. otan tän pois kunnen saan selvitettyä miksi.
 	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
 	this.movementDisabled=true;
 	this.won=true;
@@ -76,5 +83,4 @@ Level.prototype.win = function () {
 		player.dy=0;
 		player.win();
 	}
-	*/
 }

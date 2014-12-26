@@ -99,8 +99,8 @@ Player.prototype.move	= function(){
 				this.sprite.y += this.dy*this.Yspeed;
 			}
 			else {
-				//Nyt on vähän purkka meno kun käytetään xspeedia, mutta..
-				this.sprite.y += this.dy*this.Xspeed;
+				//Pelaaja ei voi liikkua alaspäin, jolloin peli vaikeutuu loppua kohden.
+				this.sprite.y += this.dy*0;
 			}
 		}
 	}
