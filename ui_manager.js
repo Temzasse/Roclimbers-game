@@ -69,7 +69,7 @@ function createGame(){
 	//stage.addChild(menu);
 	
 	//Luodaan pelaaja: 1 elämä, positio (10,10)
-	player = new Player(1, 170, 450);
+	player = new Player(1, 170, 350);
 	wl2.addChild(player.sprite);
 	
 	//Tehään läpällä heti kivi. Nyt kivi lisää intensä world layer kakkoseen konstruktorissa. Toinen mahdollisuus olisi luoda initissä "item"-container johon itemmit aina lisäisivät itsensä. Se auttais konsistentimmassa piirtämisjärjestyksessä.
