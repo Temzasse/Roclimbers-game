@@ -30,9 +30,22 @@ function showPausedMenu(){
 function showMainMenu(){
 	stage.removeChild(world);
 	stage.removeChild(paused_menu);
+	stage.removeChild(win_menu);
 	stage.addChild(main_menu);
 }
 
+function showWinMenu(){
+	stage.addChild(win_menu);
+}
+
+//Voittamisen jälkeen resetoidaan ja hypätään main menuun nappia painettaessa
+function resetToMain(){
+	currentLevel.won=false;
+	player.won=false;
+	player.sprite.y=450;
+	player.sprite.x=170;
+	showMainMenu();
+}
 
 function createGame(){
 
@@ -56,7 +69,7 @@ function createGame(){
 	//stage.addChild(menu);
 	
 	//Luodaan pelaaja: 1 elämä, positio (10,10)
-	player = new Player(1, 170, 550);
+	player = new Player(1, 170, 450);
 	wl2.addChild(player.sprite);
 	
 	//Tehään läpällä heti kivi. Nyt kivi lisää intensä world layer kakkoseen konstruktorissa. Toinen mahdollisuus olisi luoda initissä "item"-container johon itemmit aina lisäisivät itsensä. Se auttais konsistentimmassa piirtämisjärjestyksessä.
@@ -325,8 +338,26 @@ function createMenus(){
 		resume_button.on("click", showGame);
 		replay_button.on("click", createGame);
 		main_menu_button.on("click", showMainMenu);
+		// Paused Menu END---------------------------------------------------
+		
+		// WIn Menu -----------------------------
+		win_menu = new createjs.Container();
+		var win_menu_label = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
+		win_menu_label.name = "win-menu-label";
+		win_menu_label.textAlign = "center";
+		win_menu_label.textBaseline = "middle";
+		win_menu_label.x = WIDTH/2;
+		win_menu_label.y = 300;
+
+		var win_menu_button = new createjs.Container();
+		win_menu_button.name = "button";
+		win_menu_button.x = ((WIDTH/2)-75);
+		win_menu_button.y = HEIGHT*(4/6);
+		win_menu_button.addChild(main_menu_bg.clone(true),main_menu_label.clone(true));
+		win_menu_button.on("click", resetToMain);
+		win_menu.addChild(win_menu_label, win_menu_button);
 	}
-	// Paused Menu END---------------------------------------------------
+	
 
 }
 

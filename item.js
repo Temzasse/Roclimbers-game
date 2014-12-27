@@ -39,9 +39,13 @@ Item.prototype.warn = function () {
 }
 
 //Tällä liikutellaan tavaroita taustan mukana
-Item.prototype.move = function(x) {
+Item.prototype.move = function(x,y) {
 	this.warning.x+=x;
 	this.object.x+=x;
+	//Muutetaan ytä vaan jos kivi on jo liikkeellä
+	if (this.vel!=0) {
+		this.object.y+=y;
+	}	
 }
 
 Item.prototype.crash = function () {

@@ -49,7 +49,7 @@ $(window).load(function(){
 			//takaisin edelliseen positioonsa.
 			var collision = ndgmr.checkPixelCollision(currentLevel.bg, player.sprite, 0.75);
 			//console.log(collision);
-			if (!(player.dead) && (collision !== false)) {
+			if (!(player.dead) && !(player.won) && (collision !== false)) {
 				player.sprite.x = player.lastX;
 				player.sprite.y = player.lastY;
 				currentLevel.bg.y=currentLevel.lastY;
@@ -81,33 +81,36 @@ $(window).load(function(){
 	UP_DOWN=false;
 		
 	$(document).keydown(function(e) {
-		if (e.keyCode == KEYCODE_ESC) {
-			gamePaused = true;
-			showPausedMenu();
-		}
-		if (e.keyCode == KEYCODE_LEFT) {
-			e.preventDefault();
-			//console.log("left");
-			LEFT_DOWN = true;
-			player.dx = -1;
-		}
-		if (e.keyCode == KEYCODE_RIGHT) {
-			e.preventDefault();
-			//console.log("right");
-			RIGHT_DOWN = true;
-			player.dx = 1;
-		}
-		if (e.keyCode == KEYCODE_UP) {
-			e.preventDefault();
-			//console.log("up");
-			UP_DOWN = true;
-			player.dy = -1;
-		}
-		if (e.keyCode == KEYCODE_DOWN) {
-			e.preventDefault();
-			//console.log("down");
-			DOWN_DOWN = true;
-			player.dy = 1;
+		//Tän avulla voidaan disablea liikkuminen, kun voittaa pelin, mutta silti hyödynnetään pelaajan perus liikkumisspritejä.
+		if (!currentLevel.moveDisabled) {
+			if (e.keyCode == KEYCODE_ESC) {
+				gamePaused = true;
+				showPausedMenu();
+			}
+			if (e.keyCode == KEYCODE_LEFT) {
+				e.preventDefault();
+				//console.log("left");
+				LEFT_DOWN = true;
+				player.dx = -1;
+			}
+			if (e.keyCode == KEYCODE_RIGHT) {
+				e.preventDefault();
+				//console.log("right");
+				RIGHT_DOWN = true;
+				player.dx = 1;
+			}
+			if (e.keyCode == KEYCODE_UP) {
+				e.preventDefault();
+				//console.log("up");
+				UP_DOWN = true;
+				player.dy = -1;
+			}
+			if (e.keyCode == KEYCODE_DOWN) {
+				e.preventDefault();
+				//console.log("down");
+				DOWN_DOWN = true;
+				player.dy = 1;
+			}
 		}
 	});
 

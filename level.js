@@ -41,7 +41,7 @@ Level.prototype.move = function () {
 			// Liikuta liikkumisaluetta ja taustaa
 			//Jos pelaaja on niin ylhäällä/alhaalla ettei itse liiku niin tausta liikkuu tuplanopeudella (jolloin kokonaisliiku pysyy samana riippumatta pelaajan paikasta)
 			this.lastY=this.bg.y;
-			if (played.dy>0) {
+			if (player.dy>0) {
 				this.speed=this.downspeed;
 			}
 			else {
@@ -49,6 +49,10 @@ Level.prototype.move = function () {
 			}
 			this.bg.y-=player.dy*this.speed;
 			this.ga.y-=player.dy*this.speed;
+			//Liikutellaan tavaroita, jotta ylös/alas liikkuminen jopa auttaisi niiden väistelyssä.
+			for(i=0; i<items.length; i++) {
+				items[i].move(0, -player.dy*this.speed);
+			}
 		}
 		//Kun saavutetaan vuoren huippu pelaajan nopeutta nostetaan.
 		else if ((this.height-this.bg.y)>=(HEIGHT/2)&& player.dy<0) {
@@ -70,17 +74,22 @@ Level.prototype.getScore = function () {
 //SCriptattu voittokävely
 //100 pixelii ylöspäin, minkä jälkeen näytetään voittoanimaatio (?? joku lipun istutus) ja sitten uusi idleanimaatio.
 Level.prototype.win = function () {
+	//Kun peli voitetaan vaihetaan animaatiota.
+	if (!this.won) {
+		//player.sprite.gotoAndPlay("win_climb");
+	}
 	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
 	this.movementDisabled=true;
 	this.won=true;
 	//Eli nyt mennään ylöspäin joku tietty matka.
 	if (player.sprite.y > 50) {
+		player.win();
 		player.dy=-1;
 		player.ytop=0;
 	}
 	//Kun se on ohi voittoanimaatio näytetään. Kutsun player.win, koska voi olla kätevintä tehdä kokonaan uusi sprite sheet jne. Playerissä voi sitten kikkailla niillä.
-	else {
+	else if (player.sprite.y > 25) {
 		player.dy=0;
-		player.win();
+		showWinMenu();
 	}
 }

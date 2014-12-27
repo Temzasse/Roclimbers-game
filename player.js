@@ -8,7 +8,7 @@ function Player(lives, x, y) {
 	//Rajat missä pelkästään tausta alkaa liikkua
 	this.xleft=10;
 	this.xright=WIDTH-30;
-	this.ytop=100;
+	this.ytop=0;
 	this.ybottom=HEIGHT-30;
 	this.Xspeed=3;
 	this.Yspeed=1;
@@ -16,6 +16,7 @@ function Player(lives, x, y) {
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
 	this.vel=0;
+	this.won=false;
 	
 	//Testataan ladata pelaajasprite ja heittää se ruudulle.. lopullinen versio voisi olla eligantimpi ja enemmän kamaa player.jsssä
 	//Lisää EaselJS spritesheeteistä http://createjs.com/Docs/EaselJS/classes/SpriteSheet.html
@@ -23,13 +24,19 @@ function Player(lives, x, y) {
 		//Framerate animaatiolle, myös yksittäisille actioneille (kuten climb) voi vielä asettaa oman nopeuden
 		 framerate:10,
 		 images: ["images/climber.png"],
-		 frames: {width:35, height:50},
+		 frames: {width:35, height:50, count:10},
 		 //Tässä erilaisia animaatioita. Jostain syystä ne ei toimi :(
 		 animations: {
 		 	climb_vertical: [1,2], 
 		 	climb_left: { frames: [2,3,4] }, 
 		 	climb_right: { frames: [1,3,4]}, 
-		 	stationary: 0 
+		 	stationary: 0, 
+		 	stand: 9,
+		 	win_climb: { 
+		 		frames: [5,5,6,6,7,8,7,8], 
+		 		next: "stand",
+		 		speed: 0.5
+		 	}
 		 }
 	 };
 	var spriteSheet = new createjs.SpriteSheet(data);
@@ -56,37 +63,44 @@ Player.prototype.move	= function(){
 		this.lastX=this.sprite.x;
 		this.lastY=this.sprite.y;
 		// going sideways
-		if( this.dy === 0 && this.dx !== 0){
-			this.sprite.paused=false;
-			if (this.dx<0) {
-				if (this.sprite.currentAnimation != "climb_left"){
-					this.sprite.gotoAndPlay("climb_left");
+		if (!this.won) {
+			if( this.dy === 0 && this.dx !== 0){
+				this.sprite.paused=false;
+				if (this.dx<0) {
+					if (this.sprite.currentAnimation != "climb_left"){
+						this.sprite.gotoAndPlay("climb_left");
+					}
+				}		
+				else {
+					if (this.sprite.currentAnimation != "climb_right"){
+						this.sprite.gotoAndPlay("climb_right");
+					}
 				}
-			}		
-			else {
-				if (this.sprite.currentAnimation != "climb_right"){
-					this.sprite.gotoAndPlay("climb_right");
+			}
+			// going up/down
+			else if( this.dx === 0 && this.dy !== 0){
+				this.sprite.paused=false;
+				if (this.sprite.currentAnimation != "climb_vertical"){
+					this.sprite.gotoAndPlay("climb_vertical");
 				}
 			}
-		}
-		// going up/down
-		else if( this.dx === 0 && this.dy !== 0){
-			this.sprite.paused=false;
-			if (this.sprite.currentAnimation != "climb_vertical"){
-				this.sprite.gotoAndPlay("climb_vertical");
+			// going diagonallthis.dy
+			else if( this.dy !== 0 && this.dx !== 0){
+				this.sprite.paused=false;
+				if (this.sprite.currentAnimation != "climb_vertical"){
+					this.sprite.gotoAndPlay("climb_vertical");
+				}
+			}
+			// staying still
+			else{
+				this.sprite.gotoAndPlay("stationary");
+				this.sprite.paused=false;
 			}
 		}
-		// going diagonallthis.dy
-		else if( this.dy !== 0 && this.dx !== 0){
-			this.sprite.paused=false;
-			if (this.sprite.currentAnimation != "climb_vertical"){
-				this.sprite.gotoAndPlay("climb_vertical");
+		else {
+			if ((this.sprite.currentAnimation != "win_climb") && (this.sprite.currentAnimation != "stand")) {
+				this.sprite.gotoAndPlay("win_climb");
 			}
-		}
-		// staying still
-		else{
-			this.sprite.gotoAndPlay("stationary");
-			this.sprite.paused=false;
 		}
 		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
 		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
@@ -117,5 +131,5 @@ Player.prototype.move	= function(){
 }
 
 Player.prototype.win = function() {
-	
+	this.won = true;
 }
