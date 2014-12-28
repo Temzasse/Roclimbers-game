@@ -79,17 +79,19 @@ Level.prototype.win = function () {
 		//player.sprite.gotoAndPlay("win_climb");
 	}
 	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
-	this.movementDisabled=true;
+	this.moveDisabled=true;
 	this.won=true;
 	//Eli nyt mennään ylöspäin joku tietty matka.
 	if (player.sprite.y > 50) {
 		player.win();
 		player.dy=-1;
+		player.dx=0;
 		player.ytop=0;
 	}
 	//Kun se on ohi voittoanimaatio näytetään. Kutsun player.win, koska voi olla kätevintä tehdä kokonaan uusi sprite sheet jne. Playerissä voi sitten kikkailla niillä.
 	else if (player.sprite.y > 25) {
 		player.dy=0;
+		player.dx=0;
 		showWinMenu();
 	}
 }

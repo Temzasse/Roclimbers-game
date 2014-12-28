@@ -80,8 +80,10 @@ $(window).load(function(){
 	        for(i=0; i<items.length; i++) {
 	        	items[i].update();
 	        	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
-	        	//Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
-	        	if (collision !== false && !(player.dead))
+	        	/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
+	        	Tavarat ei törmää jos törmäily on pois päältä.
+	        	Lisäksi kuolleeseen tai voittaneeseen pelaajaan ei voi törmätä*/
+	        	if (collision !== false && !(player.dead) && (!player.won))
 	        		items[i].crash();
 	        }
 	        // varmista että kun tausta pysähtyy niin pelaajan näennäinen nopeus ei muutu
