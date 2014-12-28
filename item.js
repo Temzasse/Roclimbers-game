@@ -2,8 +2,8 @@ function Item(x, layer) {
 	//Tässä esimerkki kivelle. Voisi yleistää, tehdä yleisluokan ja sitten spesifioida eri itemmit.
 	//otetaan x talteen. Kun itemmille annetaan x voi scriptata tilanteita, tai heittää randomilla.
 	this.x=x;
-	this.warning = new createjs.Bitmap("images/rock_warning.png");
-	this.object = new createjs.Bitmap("images/rock.png");
+	this.warning = new createjs.Bitmap(r_warning);
+	this.object = new createjs.Bitmap(rock);
 	
 	//Heitetään objektit maailmaan
 	layer.addChild(this.warning);

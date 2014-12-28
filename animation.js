@@ -2,7 +2,51 @@ $(window).load(function(){
 	
 	var pauseCircle, goCircle, output;
 	GRAVITY=5;
+	//Kaikki kuvat ladataan tässä paitsi taustatekstuuri koska siinä on jo onload juttu
+	lvl1ga = new Image();
+	lvl1bg = new Image();
+	lvl2ga = new Image();
+	lvl2bg = new Image();
+	lvl1thumb = new Image();
+	lvl2thumb = new Image();
+	rock = new Image();
+	r_warning = new Image();
+	climber = new Image();
+	lvl1ga.onload = countLoads;
+	lvl1bg.onload = countLoads;
+	lvl2ga.onload = countLoads;
+	lvl2bg.onload = countLoads;
+	lvl1thumb.onload = countLoads;
+	lvl2thumb.onload = countLoads;
+	rock.onload = countLoads;
+	r_warning.onload = countLoads;
+	climber.onload = countLoads;
+	lvl1ga.src = "images/level_1_kallio.png";
+	lvl1bg.src = "images/level_1_tausta.png";
+	lvl2ga.src = "images/level_2_kallio.png";
+	lvl2bg.src = "images/level_2_tausta.png";
+	lvl1thumb.src =  "images/level_1_thumbnail.jpg";
+	lvl2thumb.src = "images/level_2_thumbnail.jpg";
+	rock.src = "images/rock.png";
+	r_warning.src = "images/rock_warning.png";
+	climber.src = "images/climber.png";
+	
+	//Lataajalle vähän juttuja.
+	loads=0;
+	var canvas = document.getElementById("game");
+	var context = canvas.getContext("2d");
+	context.font = "bold 32px Arial";
+	context.fillText("Loading", WIDTH/2-100, HEIGHT/2);
+	//laskee ladattuja resursseja, kun kaikki resurssit on ladattu käynnistää pelin;
+	function countLoads() {
+		loads+=1;
+		context.fillText("Loading" + Array(loads+1).join('.'), WIDTH/2-100, HEIGHT/2);
+		if (loads==9) {
+			init();
+		}
+	}
 
+	
 	function init() {
 		stage = new createjs.Stage("game");
 		
@@ -165,6 +209,4 @@ $(window).load(function(){
 	});
 
 
-	// aloita peli
-	init();
 });

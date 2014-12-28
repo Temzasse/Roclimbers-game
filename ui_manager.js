@@ -78,10 +78,10 @@ function createGame(){
 
 	if( selected_level === 1){
 		//Vika parametri on nykyään voittamiskorkeus, eli esim. 100px pienempi kuin taso itse.
-		level = new Level("images/level_1_kallio.png", "images/level_1_tausta.png", 1900);
+		level = new Level(lvl1ga, lvl1bg, 1900);
 	}
 	else if( selected_level === 2){
-		level = new Level("images/level_2_kallio.png", "images/level_2_tausta.png", 1900);
+		level = new Level(lvl2ga, lvl2bg, 1900);
 	}
 	
 	currentLevel = level;
@@ -135,8 +135,8 @@ function createMenus(){
 		choose_level_text.x = WIDTH/2;
 		choose_level_text.y = HEIGHT*(2/8);
 
-		var lvl_1 = new createjs.Bitmap("images/level_1_thumbnail.jpg");
-		var lvl_2 = new createjs.Bitmap("images/level_2_thumbnail.jpg");
+		var lvl_1 = new createjs.Bitmap(lvl1thumb);
+		var lvl_2 = new createjs.Bitmap(lvl2thumb);
 		lvl_1.shadow = new createjs.Shadow("#000", 3, 3, 20);
 		lvl_2.shadow = new createjs.Shadow("#000", 3, 3, 20);
 
