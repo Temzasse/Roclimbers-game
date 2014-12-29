@@ -1,4 +1,4 @@
-function Level(gameArea, backgroundArea, h) {
+function Level(gameArea, backgroundArea, h, music) {
 	//Scrollausnopeus.
 	this.upspeed = 5;
 	//Alaspäin mennään hitaammin, jotta pelaaja tajuaa, että on tarkoitus kiivetä ylöspäin
@@ -10,6 +10,7 @@ function Level(gameArea, backgroundArea, h) {
 	//Tähän tallennetaan kentän voittokorkeus: esim 2000px kartassa 1900px
 	this.h=h;
 
+	this.music = music;
 	//Tallenetaan kuvan tiedot kivempiin parametreihin.
 	//this.width=this.bg.image.width;
 	this.height = 2000;

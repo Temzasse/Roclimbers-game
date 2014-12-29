@@ -7,6 +7,7 @@ var items = [];
 var difficulty = 0.97;
 var gameStarted = false;
 var gamePaused = false;
+var music;
 
 // Muuta canvaksen piirto- ja todellinen korkeus
 var can = document.getElementById("game");
@@ -18,6 +19,13 @@ function showGame(){
 	stage.removeChild(main_menu);
 	stage.removeChild(paused_menu);
 	stage.addChild(world);
+	console.log(gamePaused);
+	if (gamePaused){
+		music.resume();
+	}
+	else{
+		music = createjs.Sound.play(level.music, {loop:-1});
+	}
 	gamePaused = false;
 }
 
@@ -25,6 +33,7 @@ function showPausedMenu(){
 	stage.removeChild(world);
 	stage.removeChild(main_menu);
 	stage.addChild(paused_menu);
+	music.pause();
 }
 
 function showMainMenu(){
@@ -32,18 +41,21 @@ function showMainMenu(){
 	stage.removeChild(paused_menu);
 	stage.removeChild(win_menu);
 	stage.addChild(main_menu);
+	music.pause();
 }
 
 function showWinMenu(){
 	stage.addChild(win_menu);
+	//music.stop();
+	createjs.Sound.play("win_sound", {loop:0});
 }
 
 //Voittamisen jälkeen resetoidaan ja hypätään main menuun nappia painettaessa
 function resetToMain(){
 	currentLevel.won=false;
-	player.won=false;
-	player.sprite.y=450;
-	player.sprite.x=170;
+	//player.won=false;
+	//player.sprite.y=450;
+	//player.sprite.x=170;
 	showMainMenu();
 }
 
@@ -78,10 +90,10 @@ function createGame(){
 
 	if( selected_level === 1){
 		//Vika parametri on nykyään voittamiskorkeus, eli esim. 100px pienempi kuin taso itse.
-		level = new Level(lvl1ga, lvl1bg, 1900);
+		level = new Level(lvl1ga, lvl1bg, 1900, "lvl_1_music");
 	}
 	else if( selected_level === 2){
-		level = new Level(lvl2ga, lvl2bg, 1900);
+		level = new Level(lvl2ga, lvl2bg, 1900, "lvl_2_music");
 	}
 	
 	currentLevel = level;
@@ -95,6 +107,7 @@ function createGame(){
 	wl2.addChild(score);
 
 	gameStarted = true;
+	gamePaused = false;
 	// Piilota Menu ja aloita peli
 	showGame();
 }

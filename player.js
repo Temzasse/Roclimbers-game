@@ -55,6 +55,7 @@ function Player(lives, x, y) {
 Player.prototype.die	= function() {
 	this.dead = true;
 	this.vel=-10;
+	createjs.Sound.play("scream_sound");
 }
 
 Player.prototype.move	= function(){

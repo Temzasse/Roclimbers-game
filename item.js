@@ -59,6 +59,7 @@ Item.prototype.update = function () {
 		this.object.visible=true;
 		this.warning.visible=false;
 		this.falling=true;
+		createjs.Sound.play("rock_drop_sound");
 	}
 	//Muuten kivi liikkuu. Tän perään lisättäis törmäystarkistus
 	else if (this.falling==true) {

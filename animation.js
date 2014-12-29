@@ -30,6 +30,18 @@ $(window).load(function(){
 	rock.src = "images/rock.png";
 	r_warning.src = "images/rock_warning.png";
 	climber.src = "images/climber.png";
+
+	//ÄÄNET
+	//aina kun ääni on ladattu
+	createjs.Sound.on("fileload", handleFileLoad);
+	function handleFileLoad(event) {
+	    countLoads();
+	}
+	createjs.Sound.registerSound("sounds/lvl_1.mp3", "lvl_1_music");
+	createjs.Sound.registerSound("sounds/lvl_2.mp3", "lvl_2_music");
+	createjs.Sound.registerSound("sounds/swoosh.mp3", "rock_drop_sound");
+	createjs.Sound.registerSound("sounds/scream.mp3", "scream_sound");
+	createjs.Sound.registerSound("sounds/win.mp3", "win_sound");
 	
 	//Lataajalle vähän juttuja.
 	loads=0;
@@ -41,10 +53,12 @@ $(window).load(function(){
 	function countLoads() {
 		loads+=1;
 		context.fillText("Loading" + Array(loads+1).join('.'), WIDTH/2-100, HEIGHT/2);
-		if (loads==9) {
+		console.log(loads);
+		if (loads==14) {
 			init();
 		}
 	}
+	
 
 	
 	function init() {
@@ -65,9 +79,9 @@ $(window).load(function(){
 	function tick(event) {
 	
 		//pause
-        if (!createjs.Ticker.getPaused()) {
+        //if (!createjs.Ticker.getPaused()) {
             //console.log("paused");
-        }
+        //}
         if (gameStarted && !gamePaused){
 
 	        //Lisätään kivi?
@@ -130,8 +144,10 @@ $(window).load(function(){
 		//Tän avulla voidaan disablea liikkuminen, kun voittaa pelin, mutta silti hyödynnetään pelaajan perus liikkumisspritejä.
 		if (!currentLevel.moveDisabled) {
 			if (e.keyCode == KEYCODE_ESC) {
-				gamePaused = true;
-				showPausedMenu();
+				if ( !(gamePaused) ){
+					gamePaused = true;
+					showPausedMenu();
+				}
 			}
 			if (e.keyCode == KEYCODE_LEFT) {
 				e.preventDefault();
