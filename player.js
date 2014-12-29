@@ -34,7 +34,7 @@ function Player(lives, x, y) {
 		 	stationary: 0, 
 		 	stand: 9,
 		 	win_climb: { 
-		 		frames: [5,5,6,6,7,8,7,8], 
+		 		frames: [5,5,6,6,7], 
 		 		next: "stand",
 		 		speed: 0.5
 		 	}
