@@ -75,24 +75,33 @@ Level.prototype.getScore = function () {
 //SCriptattu voittokävely
 //100 pixelii ylöspäin, minkä jälkeen näytetään voittoanimaatio (?? joku lipun istutus) ja sitten uusi idleanimaatio.
 Level.prototype.win = function () {
-	//Kun peli voitetaan vaihetaan animaatiota.
-	if (!this.won) {
+	//Kun peli voitetaan (ekan kerran) tapahtuu asioita.
+	if (!(this.won)) {
+		//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
+		this.moveDisabled=true;
+		this.won=true;
+		//Pelaaja liikkuu nyt automaattisesti ylöspäin
+		player.dy=-1;
+		player.dx=0;
+		//Omat flagit 50px ja 25px korkeudessa tapahtuville koodeille.
+		this.flag25=false;
 		//player.sprite.gotoAndPlay("win_climb");
 	}
-	//Nää kaks muuttujaa on käytännössä samoja mutta selkeyttää koodin lukemista kun ne on eri nimil.
-	this.moveDisabled=true;
-	this.won=true;
-	//Eli nyt mennään ylöspäin joku tietty matka.
+	//Eli nyt mennään ylöspäin joku tietty matka. Tätä pitää kutsua jatkuvasti, jotta pelaaja liikkuu.
 	if (player.sprite.y > 50) {
+		//Pelaaja voitettaa (ei voi enää osua kivet ja uusi animaatio)
 		player.win();
+		//Pelaaja voi mennä lähemmäs ylälaitaa
 		player.dy=-1;
 		player.dx=0;
 		player.ytop=0;
 	}
 	//Kun se on ohi voittoanimaatio näytetään. Kutsun player.win, koska voi olla kätevintä tehdä kokonaan uusi sprite sheet jne. Playerissä voi sitten kikkailla niillä.
-	else if (player.sprite.y > 25) {
+	else if (player.sprite.y > 25 && !(this.flag25)) {
+		//Pelaaja pysähtyy
 		player.dy=0;
-		player.dx=0;
+		//Näytetään menu
 		showWinMenu();
+		this.flag25=true;
 	}
 }
