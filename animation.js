@@ -93,7 +93,6 @@ $(window).load(function(){
 	        //Lista itemmejä jotka kaikki updatetaan.
 	        for(i=0; i<items.length; i++) {
 	        	items[i].update();
-	        	// jos playeriin on jo osunut, ei tarvitse tutkia uusia osumia
         	
         		var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
         		/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
@@ -151,7 +150,7 @@ $(window).load(function(){
 		//Tän avulla voidaan disablea liikkuminen, kun voittaa pelin, mutta silti hyödynnetään pelaajan perus liikkumisspritejä.
 		if (!currentLevel.moveDisabled) {
 			if (e.keyCode == KEYCODE_ESC) {
-				if ( !(gamePaused) ){
+				if ( !gamePaused && !player.dead && !player.won ){
 					gamePaused = true;
 					showPausedMenu();
 				}
