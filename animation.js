@@ -82,7 +82,7 @@ $(window).load(function(){
         //if (!createjs.Ticker.getPaused()) {
             //console.log("paused");
         //}
-        if (gameStarted && !gamePaused){
+        if (gameStarted && !gamePaused && !player.dead){
 
 	        //Lisätään kivi?
 	        if ( Math.random() > difficulty && !(currentLevel.won) ) {
@@ -93,12 +93,16 @@ $(window).load(function(){
 	        //Lista itemmejä jotka kaikki updatetaan.
 	        for(i=0; i<items.length; i++) {
 	        	items[i].update();
-	        	var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
-	        	/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
-	        	Tavarat ei törmää jos törmäily on pois päältä.
-	        	Lisäksi kuolleeseen tai voittaneeseen pelaajaan ei voi törmätä*/
-	        	if (collision !== false && !(player.dead) && (!player.won))
-	        		items[i].crash();
+	        	// jos playeriin on jo osunut, ei tarvitse tutkia uusia osumia
+	        	if(!player.hit){
+	        		var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
+	        		/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
+		        	Tavarat ei törmää jos törmäily on pois päältä.
+		        	Lisäksi kuolleeseen tai voittaneeseen pelaajaan ei voi törmätä*/
+		        	if (collision !== false && !(player.dead) && (!player.won)){
+		        		items[i].crash();
+		        	}
+	        	}
 	        }
 	        // varmista että kun tausta pysähtyy niin pelaajan näennäinen nopeus ei muutu
 	        if( currentLevel.bg.y === 0 ){
@@ -107,7 +111,10 @@ $(window).load(function(){
 			player.move(); // Very important also!!
 			//Jos liikkumisen jälkeen ollaan menty alueelle, jossa törmätään taivaaseen, pelaaja liikkuu
 			//takaisin edelliseen positioonsa.
-			var collision = ndgmr.checkPixelCollision(currentLevel.bg, player.sprite, 0.75);
+			//jos pelaajaan on osunut kivi, ei tarvi välittää kentän rajoista enään
+			if(!player.hit){
+				var collision = ndgmr.checkPixelCollision(currentLevel.bg, player.sprite, 0.75);
+			}
 			//console.log(collision);
 			if (!(player.dead) && !(player.won) && (collision !== false)) {
 				player.sprite.x = player.lastX;

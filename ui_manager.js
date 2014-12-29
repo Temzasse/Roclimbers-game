@@ -49,6 +49,10 @@ function showWinMenu(){
 	//music.stop();
 	createjs.Sound.play("win_sound", {loop:0});
 }
+function showDeadMenu(){
+	stage.addChild(dead_menu);
+	music.stop();
+}
 
 //Voittamisen jälkeen resetoidaan ja hypätään main menuun nappia painettaessa
 function resetToMain(){
@@ -279,11 +283,11 @@ function createMenus(){
 			insane_dif_bg.graphics.clear().beginStroke("#CC6633").setStrokeStyle(4).beginFill("#fff").drawRoundRect( 0, 0, 60, 30, 5);
 		});
 	
-	// Main Menu END---------------------------------------------------
+		// Main Menu END---------------------------------------------------
 
 
 
-	// Paused Menu---------------------------------------------------
+		// Paused Menu---------------------------------------------------
 		paused_menu = new createjs.Container();
 
 		// game paused text
@@ -353,7 +357,7 @@ function createMenus(){
 		main_menu_button.on("click", showMainMenu);
 		// Paused Menu END---------------------------------------------------
 		
-		// WIn Menu -----------------------------
+		// Win Menu -----------------------------
 		win_menu = new createjs.Container();
 		var win_menu_label = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
 		win_menu_label.name = "win-menu-label";
@@ -367,8 +371,35 @@ function createMenus(){
 		win_menu_button.x = ((WIDTH/2)-75);
 		win_menu_button.y = HEIGHT*(4/6);
 		win_menu_button.addChild(main_menu_bg.clone(true),main_menu_label.clone(true));
-		win_menu_button.on("click", resetToMain);
+		win_menu_button.on("click", showMainMenu);
 		win_menu.addChild(win_menu_label, win_menu_button);
+
+		// Dead Menu---------------------------------------------------
+		dead_menu = new createjs.Container();
+		// You died text
+		var dead_text = new createjs.Text("You died", "72px Impact", "#000");
+		dead_text.name = "dead-text-label";
+		dead_text.textAlign = "center";
+		dead_text.textBaseline = "middle";
+		dead_text.x = WIDTH/2;
+		dead_text.y = HEIGHT*(2/6);
+
+		var dead_replay_button = new createjs.Container();
+		dead_replay_button.x = ((WIDTH/2)-75);
+		dead_replay_button.y = HEIGHT*(3/6);
+		dead_replay_button.addChild(replay_bg.clone(true), replay_label.clone(true));
+
+		var dead_main_menu_button = new createjs.Container();
+		dead_main_menu_button.x = ((WIDTH/2)-75);
+		dead_main_menu_button.y = HEIGHT*(4/6);
+		dead_main_menu_button.addChild(main_menu_bg.clone(true), main_menu_label.clone(true));
+		// lisätään Dead Menu elementit
+		dead_menu.addChild(dead_text, dead_replay_button, dead_main_menu_button);
+		dead_replay_button.on("click", createGame);
+		dead_main_menu_button.on("click", showMainMenu);
+		// Dead Menu END---------------------------------------------------
+		
+		
 	}
 	
 

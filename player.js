@@ -13,6 +13,7 @@ function Player(lives, x, y) {
 	this.Xspeed=3;
 	this.Yspeed=1;
 	//Onko pelaaja kuollut?
+	this.hit = false;
 	this.dead=false;
 	//Kuolleena tarvitaan nopeusparametria.
 	this.vel=0;
@@ -53,81 +54,90 @@ function Player(lives, x, y) {
 }
 
 Player.prototype.die	= function() {
-	this.dead = true;
+	this.hit = true;
 	this.vel=-10;
 	createjs.Sound.play("scream_sound");
+	showDeadMenu();
 }
 
 Player.prototype.move	= function(){
-	//Tää kaikki pätee vaan jos pelaaja on elossa.
-	if (!(this.dead)) {
-		this.lastX=this.sprite.x;
-		this.lastY=this.sprite.y;
-		// going sideways
-		if (!this.won) {
-			if( this.dy === 0 && this.dx !== 0){
-				this.sprite.paused=false;
-				if (this.dx<0) {
-					if (this.sprite.currentAnimation != "climb_left"){
-						this.sprite.gotoAndPlay("climb_left");
+	if(!this.dead){
+
+		//Tää kaikki pätee vaan jos pelaaja on elossa.
+		if (!(this.hit)) {
+			this.lastX=this.sprite.x;
+			this.lastY=this.sprite.y;
+			// going sideways
+			if (!this.won) {
+				if( this.dy === 0 && this.dx !== 0){
+					this.sprite.paused=false;
+					if (this.dx<0) {
+						if (this.sprite.currentAnimation != "climb_left"){
+							this.sprite.gotoAndPlay("climb_left");
+						}
+					}		
+					else {
+						if (this.sprite.currentAnimation != "climb_right"){
+							this.sprite.gotoAndPlay("climb_right");
+						}
 					}
-				}		
-				else {
-					if (this.sprite.currentAnimation != "climb_right"){
-						this.sprite.gotoAndPlay("climb_right");
+				}
+				// going up/down
+				else if( this.dx === 0 && this.dy !== 0){
+					this.sprite.paused=false;
+					if (this.sprite.currentAnimation != "climb_vertical"){
+						this.sprite.gotoAndPlay("climb_vertical");
 					}
 				}
-			}
-			// going up/down
-			else if( this.dx === 0 && this.dy !== 0){
-				this.sprite.paused=false;
-				if (this.sprite.currentAnimation != "climb_vertical"){
-					this.sprite.gotoAndPlay("climb_vertical");
+				// going diagonallthis.dy
+				else if( this.dy !== 0 && this.dx !== 0){
+					this.sprite.paused=false;
+					if (this.sprite.currentAnimation != "climb_vertical"){
+						this.sprite.gotoAndPlay("climb_vertical");
+					}
 				}
-			}
-			// going diagonallthis.dy
-			else if( this.dy !== 0 && this.dx !== 0){
-				this.sprite.paused=false;
-				if (this.sprite.currentAnimation != "climb_vertical"){
-					this.sprite.gotoAndPlay("climb_vertical");
+				// staying still
+				else{
+					this.sprite.gotoAndPlay("stationary");
+					this.sprite.paused=false;
 				}
-			}
-			// staying still
-			else{
-				this.sprite.gotoAndPlay("stationary");
-				this.sprite.paused=false;
-			}
-		}
-		else {
-			if ((this.sprite.currentAnimation != "win_climb") && (this.sprite.currentAnimation != "stand")) {
-				this.sprite.gotoAndPlay("win_climb");
-			}
-		}
-		//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
-		if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
-			this.sprite.x += this.dx*this.Xspeed;
-		}
-		//Sama ylös/alas liikkeelle
-		if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
-			//Eli alas mennään nopeudella kolme ja ylös nopeudella 1. Muuttaa pelidynamiikan jännittäväksi
-			if (this.dy<0) {
-				this.sprite.y += this.dy*this.Yspeed;
 			}
 			else {
-				//Pelaaja ei voi liikkua alaspäin, jolloin peli vaikeutuu loppua kohden.
-				this.sprite.y += this.dy*0;
+				if ((this.sprite.currentAnimation != "win_climb") && (this.sprite.currentAnimation != "stand")) {
+					this.sprite.gotoAndPlay("win_climb");
+				}
+			}
+			//Jos ollaan lähellä vasenta laitaa ja mennään vasemmalle, tai lähellä oikeaa ja mennään oikealle, pelaaja ei liiku
+			if ((this.sprite.x > this.xleft && this.dx<0) || (this.sprite.x < this.xright && this.dx>0)){
+				this.sprite.x += this.dx*this.Xspeed;
+			}
+			//Sama ylös/alas liikkeelle
+			if ((this.sprite.y > this.ytop && this.dy<0) || (this.dy>0 && this.sprite.y < this.ybottom)){	
+				//Eli alas mennään nopeudella kolme ja ylös nopeudella 1. Muuttaa pelidynamiikan jännittäväksi
+				if (this.dy<0) {
+					this.sprite.y += this.dy*this.Yspeed;
+				}
+				else {
+					//Pelaaja ei voi liikkua alaspäin, jolloin peli vaikeutuu loppua kohden.
+					this.sprite.y += this.dy*0;
+				}
 			}
 		}
-	}
-	//Jos pelaaja kuolee se tippuu
-	else {
-		this.sprite.gotoAndPlay("stationary");
-		this.sprite.y+=player.vel;
-		this.vel+=GRAVITY;
-		var rotationspeed=10;
-		this.sprite.rotation+=rotationspeed;
-		//if (this.sprite.y<HEIGHT+50)
-		//	this.sprite.y+=this.vel;
+		//Jos pelaaja kuolee se tippuu
+		else {
+			this.sprite.gotoAndPlay("stationary");
+			
+			if (this.sprite.y>HEIGHT+50){
+				console.log("kuollut");
+				this.dead = true;
+			}
+			else{
+				this.sprite.y+=player.vel;
+				this.vel+=GRAVITY;
+				var rotationspeed=10;
+				this.sprite.rotation+=rotationspeed;
+			}
+		}
 	}
 }
 
