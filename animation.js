@@ -49,6 +49,7 @@ $(window).load(function(){
 	var context = canvas.getContext("2d");
 	context.font = "bold 32px Arial";
 	context.fillText("Loading", WIDTH/2-100, HEIGHT/2);
+	context.fillStyle="#FFF";
 	//laskee ladattuja resursseja, kun kaikki resurssit on ladattu käynnistää pelin;
 	function countLoads() {
 		loads+=1;
