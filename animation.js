@@ -94,15 +94,15 @@ $(window).load(function(){
 	        for(i=0; i<items.length; i++) {
 	        	items[i].update();
 	        	// jos playeriin on jo osunut, ei tarvitse tutkia uusia osumia
-	        	if(!player.hit){
-	        		var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
-	        		/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
-		        	Tavarat ei törmää jos törmäily on pois päältä.
-		        	Lisäksi kuolleeseen tai voittaneeseen pelaajaan ei voi törmätä*/
-		        	if (collision !== false && !(player.dead) && (!player.won)){
-		        		items[i].crash();
-		        	}
+        	
+        		var collision = ndgmr.checkPixelCollision(items[i].object, player.sprite, 0.75);
+        		/*Jos on osuma tehdään itemmin "crash" funktio. Esim kivi tappaa pelaajan.
+	        	Tavarat ei törmää jos törmäily on pois päältä.
+	        	Lisäksi kuolleeseen tai voittaneeseen pelaajaan ei voi törmätä*/
+	        	if (collision !== false && !(player.dead) && (!player.won)){
+	        		items[i].crash();
 	        	}
+	        	
 	        }
 	        // varmista että kun tausta pysähtyy niin pelaajan näennäinen nopeus ei muutu
 	        if( currentLevel.bg.y === 0 ){
