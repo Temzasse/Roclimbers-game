@@ -46,21 +46,12 @@ function showMainMenu(){
 
 function showWinMenu(){
 	stage.addChild(win_menu);
-	//music.stop();
 	createjs.Sound.play("win_sound", {loop:0});
+	music.stop();
 }
 function showDeadMenu(){
 	stage.addChild(dead_menu);
 	music.stop();
-}
-
-//Voittamisen jälkeen resetoidaan ja hypätään main menuun nappia painettaessa
-function resetToMain(){
-	currentLevel.won=false;
-	//player.won=false;
-	//player.sprite.y=450;
-	//player.sprite.x=170;
-	showMainMenu();
 }
 
 function createGame(){
@@ -359,20 +350,28 @@ function createMenus(){
 		
 		// Win Menu -----------------------------
 		win_menu = new createjs.Container();
-		var win_menu_label = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
-		win_menu_label.name = "win-menu-label";
-		win_menu_label.textAlign = "center";
-		win_menu_label.textBaseline = "middle";
-		win_menu_label.x = WIDTH/2;
-		win_menu_label.y = 300;
+		var win_text = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
+		win_text.name = "win-menu-label";
+		win_text.textAlign = "center";
+		win_text.textBaseline = "middle";
+		win_text.x = WIDTH/2;
+		win_text.y = HEIGHT*(2/6);
+
+		var win_replay_button = new createjs.Container();
+		win_replay_button.x = ((WIDTH/2)-75);
+		win_replay_button.y = HEIGHT*(3/6);
+		win_replay_button.addChild(replay_bg.clone(true), replay_label.clone(true));
 
 		var win_menu_button = new createjs.Container();
 		win_menu_button.name = "button";
 		win_menu_button.x = ((WIDTH/2)-75);
 		win_menu_button.y = HEIGHT*(4/6);
 		win_menu_button.addChild(main_menu_bg.clone(true),main_menu_label.clone(true));
+		// lisätään Win Menu elementit
+		win_menu.addChild(win_text, win_replay_button, win_menu_button);
+		win_replay_button.on("click", createGame);
 		win_menu_button.on("click", showMainMenu);
-		win_menu.addChild(win_menu_label, win_menu_button);
+
 
 		// Dead Menu---------------------------------------------------
 		dead_menu = new createjs.Container();

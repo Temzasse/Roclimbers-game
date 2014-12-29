@@ -150,7 +150,7 @@ $(window).load(function(){
 		//Tän avulla voidaan disablea liikkuminen, kun voittaa pelin, mutta silti hyödynnetään pelaajan perus liikkumisspritejä.
 		if (!currentLevel.moveDisabled) {
 			if (e.keyCode == KEYCODE_ESC) {
-				if ( !(gamePaused) ){
+				if ( !gamePaused && !player.dead && !player.won ){
 					gamePaused = true;
 					showPausedMenu();
 				}
