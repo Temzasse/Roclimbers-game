@@ -53,6 +53,12 @@ function showDeadMenu(){
 	stage.addChild(dead_menu);
 	music.stop();
 }
+function showInstructions(){
+	stage.addChild(instructions);
+}
+function closeInstructions(){
+	stage.removeChild(instructions);
+}
 
 function createGame(){
 
@@ -229,11 +235,29 @@ function createMenus(){
 		st_button.y = HEIGHT*(2/8)+(128*2)+130;
 		st_button.addChild(st_bg, st_label);
 
+		// ohjeet
+		var ins_bg = new createjs.Shape();
+		ins_bg.graphics.beginFill("#fff").drawRoundRect( 0, 0, 60, 20, 15);
+
+		var ins_label = new createjs.Text("Guide", "bold 14px Arial", "#333");
+		ins_label.name = "ins-label";
+		ins_label.textAlign = "center";
+		ins_label.textBaseline = "middle";
+		ins_label.x = 60/2;
+		ins_label.y = 20/2;
+
+		var ins_button = new createjs.Container();
+		ins_button.name = "button";
+		ins_button.x = (WIDTH-10-60);
+		ins_button.y = 10;
+		ins_button.addChild(ins_bg, ins_label);
+
 		// lisätään Main Menu elementit
-		main_menu.addChild(menu_bg, title, sub_title, choose_level_text, lvl_1_stroke, lvl_2_stroke, lvl_1, lvl_2, normal_dif_button, hard_dif_button, insane_dif_button, st_button);
+		main_menu.addChild(menu_bg, title, sub_title, choose_level_text, lvl_1_stroke, lvl_2_stroke, lvl_1, lvl_2, normal_dif_button, hard_dif_button, insane_dif_button, st_button, ins_button);
 		stage.addChild(main_menu);
 
 		// Lisätään tapahtumakuuntelijat nappeihin ja thumbnaileihins
+		ins_button.on("click", showInstructions);
 		st_button.on("click", function(){
 			if ( selected_level ){
 				createGame();
@@ -273,7 +297,6 @@ function createMenus(){
 			hard_dif_bg.graphics.clear().beginFill("#fff").drawRoundRect( 0, 0, 60, 30, 5);
 			insane_dif_bg.graphics.clear().beginStroke("#CC6633").setStrokeStyle(4).beginFill("#fff").drawRoundRect( 0, 0, 60, 30, 5);
 		});
-	
 		// Main Menu END---------------------------------------------------
 
 
@@ -348,6 +371,8 @@ function createMenus(){
 		main_menu_button.on("click", showMainMenu);
 		// Paused Menu END---------------------------------------------------
 		
+
+
 		// Win Menu -----------------------------
 		win_menu = new createjs.Container();
 		var win_text = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
@@ -371,6 +396,8 @@ function createMenus(){
 		win_menu.addChild(win_text, win_replay_button, win_menu_button);
 		win_replay_button.on("click", createGame);
 		win_menu_button.on("click", showMainMenu);
+
+
 
 
 		// Dead Menu---------------------------------------------------
@@ -397,8 +424,85 @@ function createMenus(){
 		dead_replay_button.on("click", createGame);
 		dead_main_menu_button.on("click", showMainMenu);
 		// Dead Menu END---------------------------------------------------
+
+
+		// Instruction---------------------------------------------------
+		instructions = new createjs.Container();
+		instructions_content = new createjs.Container();
+		var ins_title = new createjs.Text("Instructions", "32px Impact", "#fff");
+		ins_title.textAlign = "center";
+		ins_title.textBaseline = "middle";
+		ins_title.x = WIDTH/2;
+		ins_title.y = HEIGHT*(1/6);
+		var ins_text1 = new createjs.Text("You can control the player with the arrow keys.", "16px Roboto", "#fff");
+		ins_text1.textAlign = "center";
+		ins_text1.textBaseline = "middle";
+		ins_text1.x = WIDTH/2;
+		ins_text1.y = HEIGHT*(1/6)+50;
+		var ins_text2 = new createjs.Text("Pause the game with the 'esc' key.", "16px Roboto", "#fff");
+		ins_text2.textAlign = "center";
+		ins_text2.textBaseline = "middle";
+		ins_text2.x = WIDTH/2;
+		ins_text2.y = HEIGHT*(1/6)+80;
+		var ins_text3 = new createjs.Text("If you get hit by a falling rock you die.", "16px Roboto", "#fff");
+		ins_text3.textAlign = "center";
+		ins_text3.textBaseline = "middle";
+		ins_text3.x = WIDTH/2;
+		ins_text3.y = HEIGHT*(1/6)+110;
+		var ins_text4 = new createjs.Text("The game is won when you reach the top of the mountain. Good luck!  ", "16px Roboto", "#fff");
+		ins_text4.textAlign = "center";
+		ins_text4.textBaseline = "middle";
+		ins_text4.x = WIDTH/2;
+		ins_text4.y = HEIGHT*(1/6)+140;
+		instructions_content.addChild(ins_title, ins_text1, ins_text2, ins_text3, ins_text4);
+
+		requirments_content = new createjs.Container();
+		var req_title = new createjs.Text("requirments", "32px Impact", "#fff");
+		req_title.textAlign = "center";
+		req_title.textBaseline = "middle";
+		req_title.x = WIDTH/2;
+		req_title.y = HEIGHT*(1/6)+220;
+		var req_text1 = new createjs.Text("The game works at least with:", "16px Roboto", "#fff");
+		req_text1.textAlign = "center";
+		req_text1.textBaseline = "middle";
+		req_text1.x = WIDTH/2;
+		req_text1.y = HEIGHT*(1/6)+270;
+		var req_text2 = new createjs.Text("Chrome v. 39", "bold 16px Roboto", "#fff");
+		req_text2.textAlign = "center";
+		req_text2.textBaseline = "middle";
+		req_text2.x = WIDTH/2;
+		req_text2.y = HEIGHT*(1/6)+300;
+		var req_text3 = new createjs.Text("Windows 7", "bold 16px Roboto", "#fff");
+		req_text3.textAlign = "center";
+		req_text3.textBaseline = "middle";
+		req_text3.x = WIDTH/2;
+		req_text3.y = HEIGHT*(1/6)+330;
+		var req_text4 = new createjs.Text("OS X Yosemite", "bold 16px Roboto", "#fff");
+		req_text4.textAlign = "center";
+		req_text4.textBaseline = "middle";
+		req_text4.x = WIDTH/2;
+		req_text4.y = HEIGHT*(1/6)+360;
+		requirments_content.addChild(req_title, req_text1, req_text2, req_text3, req_text4);
+
+
+		var ins_close_label = new createjs.Text("close", "32px Impact", "#333");
+		ins_close_label.textAlign = "center";
+		ins_close_label.textBaseline = "middle";
+		ins_close_label.x = 150/2;
+		ins_close_label.y = 60/2;
+		var ins_close_button = new createjs.Container();
+		ins_close_button.x = ((WIDTH/2)-75);
+		ins_close_button.y = HEIGHT*(5/6);
+		ins_close_button.addChild(replay_bg.clone(true), ins_close_label);
+
+		var separator = new createjs.Shape();
+		separator.graphics.beginFill("#fff").drawRoundRect( 30, HEIGHT*(1/6)+180, WIDTH-60, 5, 3);
+
+
+		instructions.addChild(menu_bg.clone(true), instructions_content, separator, requirments_content, ins_close_button);
+		ins_close_button.on("click", closeInstructions);
 		
-		
+		// Instruction END---------------------------------------------------
 	}
 	
 
