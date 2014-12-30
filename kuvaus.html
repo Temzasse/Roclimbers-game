@@ -1,0 +1,17 @@
+<h3>Projektityö</h3>
+<a href="/game/game.html">Linkki projektityöhön<a>
+<h4>Tavoitteet</h4>
+<p>Tavoitteena oli luoda ns. "vertical scroller"-peli, jossa pelaaja liikkuu pystysuunnassa ja taustalla oleva kenttä liikkuu pelaajan mukana. Pelin pääteemaan, kiipeilyyn, tämä sopi hyvin. Pelin toista teemaa zeniä lisättiin toisen kentän tematiikkaan musiikin ja grafiikan avulla. Erityisesti pelissä haluttiin keskittyä pelattavuuteen ja kokonaisvaltaiseen kokemukseen.</p>
+<h4>Käytetyt kirjastot ja tekniset ominaisuudet</h4>
+<p>Peli on testattu ja toimii ainakin Mac OS X Yosemite ja Windows 7 käyttöjärjestelmillä Chromen versiolla 39. Peli käyttää lukuisia kirjastoja. Ensimmäisenä näistä on <a href="http://jquery.com/">jQuery-kirjasto<a>, jota käytetään html- ja css-elementtien manipulointiin. Pääasiallisena pelikirjastona käytettiin <a href="http://www.createjs.com/#!/EaselJS">EaselJs<a>:ssää, sekä äänien hallinnointiin sen sisarkirjastoa <a href="http://www.createjs.com/#!/SoundJS">SoundJ:ssää<a>. Näiden lisäksi käytettiin pikselitarkkaan osumatarkistukseen <a href="https://github.com/olsn/Collision-Detection-for-EaselJS">"ndgmr-Collision"<a>-kirjastoa.
+<br>
+Peli esilataa kaikki sen käyttämät kuva- ja äänitiedostot ennen päävalikon näyttämistä. Pelin luokkajako on aika yksinkertainen. Pelissä on luokka pelaajalle, jossa hallinoidaan liikkumiseen ja pelaajaan animointiin liittyviä tietoa, tasoluokassa tasoihin liittyvää tietoa, tavaraluokassa kiviin liittyvää tietoa ja UI-luokassa kaikki valikkoihin liittyvä. Tavaraluokka tehtiin sitä silmälläpitäen, että sen voisi laajentaa yläluokaksi ja näin voitaisiin helposti luoda useita erilaisia tavaroita. Lopulta aikarajoituksista johtuen muita tavaroita ei lisätty peliin.
+<br>
+Pelin pääsilmukassa päivitetään kaikkia peliobjekteja ja tarkistetaan niiden välisiä törmäyksiä. Peli alkaa siitä kun päävalikossa valitaan taso ja painetaan "Start Game"-nappia. Pelin alussa pelaaja on vuoren pohjalla ja peli loppuu, kun pelaaja kiipeää vuoren päälle. 
+<br>
+Pelaajan animaatio riippuu tämän liikesuunnasta. Tämän lisäksi pelaajalla on erityinen voittoanimaatio, kun se saavuttaa vuoren huipun.</p>
+<h4>Pelimekaniikat</h4>
+Pelissä ohjataan pelaajaa nuolinäppäimillä, ohjeet ovat näkyvissä myös päävalikosta avautuvassa "guide"-valikossa. Peli voidaan keskeyttää Esc-painikkeella. Tarkoitus on ohjastaa pelaaja vuoren huipulle. Pelaajan voi kiivetä vain rajatulla alueella ja samalla on väisteltävä kiviä. Pelissä voi valita kahdesta kentästä, sekä näissä edelleen kolmesta vaikeustasosta. Vaikeusaste määrittää tippuvien kivien määrän. Kivet tippuvat satunnaisesti. Pelin alussa pelaaja alottaa ruudun alaosasta, mutta kiivetessään ylöspäin pelaaja liikkuu korkeammalle, tehden kiven väistelystä progressiivisesti hankalempaa.
+<h4>Bugit</h4>
+Pelissä ei pitäisi olla jäljellä mitään bugeja, viimeisimmissä versiossa viidakkotasossa pelaaja toisinaan luotiin virheellisesti kentän keskelle lähes kentän loppuosaan. Tämän bugin pitäisi olla kuitenkin korjaantunut.
+<h4>Lähteet</h4>
