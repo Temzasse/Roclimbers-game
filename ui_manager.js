@@ -375,7 +375,7 @@ function createMenus(){
 
 		// Win Menu -----------------------------
 		win_menu = new createjs.Container();
-		var win_text = new createjs.Text("You won!", "72px Impact", "#F9F9F9");
+		var win_text = new createjs.Text("You won!", "72px Impact", "#000");
 		win_text.name = "win-menu-label";
 		win_text.textAlign = "center";
 		win_text.textBaseline = "middle";

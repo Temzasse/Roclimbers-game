@@ -1,9 +1,9 @@
 <h3>Projektityö</h3>
-<a href="/game/game.html">Linkki projektityöhön<a>
+<a href="game/game.html">Linkki projektityöhön</a>
 <h4>Tavoitteet</h4>
 <p>Tavoitteena oli luoda ns. "vertical scroller"-peli, jossa pelaaja liikkuu pystysuunnassa ja taustalla oleva kenttä liikkuu pelaajan mukana. Pelin pääteemaan, kiipeilyyn, tämä sopi hyvin. Pelin toista teemaa zeniä lisättiin toisen kentän tematiikkaan musiikin ja grafiikan avulla. Erityisesti pelissä haluttiin keskittyä pelattavuuteen ja kokonaisvaltaiseen kokemukseen.</p>
 <h4>Käytetyt kirjastot ja tekniset ominaisuudet</h4>
-<p>Peli on testattu ja toimii ainakin Mac OS X Yosemite ja Windows 7 käyttöjärjestelmillä Chromen versiolla 39. Peli käyttää lukuisia kirjastoja. Ensimmäisenä näistä on <a href="http://jquery.com/">jQuery-kirjasto<a>, jota käytetään html- ja css-elementtien manipulointiin. Pääasiallisena pelikirjastona käytettiin <a href="http://www.createjs.com/#!/EaselJS">EaselJs<a>:ssää, sekä äänien hallinnointiin sen sisarkirjastoa <a href="http://www.createjs.com/#!/SoundJS">SoundJ:ssää<a>. Näiden lisäksi käytettiin pikselitarkkaan osumatarkistukseen <a href="https://github.com/olsn/Collision-Detection-for-EaselJS">"ndgmr-Collision"<a>-kirjastoa.
+<p>Peli on testattu ja toimii ainakin Mac OS X Yosemite ja Windows 7 käyttöjärjestelmillä Chromen versiolla 39. Peli käyttää lukuisia kirjastoja. Ensimmäisenä näistä on <a href="http://jquery.com/">jQuery-kirjasto</a>, jota käytetään html- ja css-elementtien manipulointiin. Pääasiallisena pelikirjastona käytettiin <a href="http://www.createjs.com/#!/EaselJS">EaselJs</a>:ssää, sekä äänien hallinnointiin sen sisarkirjastoa <a href="http://www.createjs.com/#!/SoundJS">SoundJ:ssää</a>. Näiden lisäksi käytettiin pikselitarkkaan osumatarkistukseen <a href="https://github.com/olsn/Collision-Detection-for-EaselJS">"ndgmr-Collision"</a>-kirjastoa.
 <br>
 Peli esilataa kaikki sen käyttämät kuva- ja äänitiedostot ennen päävalikon näyttämistä. Pelin luokkajako on aika yksinkertainen. Pelissä on luokka pelaajalle, jossa hallinoidaan liikkumiseen ja pelaajaan animointiin liittyviä tietoa, tasoluokassa tasoihin liittyvää tietoa, tavaraluokassa kiviin liittyvää tietoa ja UI-luokassa kaikki valikkoihin liittyvä. Tavaraluokka tehtiin sitä silmälläpitäen, että sen voisi laajentaa yläluokaksi ja näin voitaisiin helposti luoda useita erilaisia tavaroita. Lopulta aikarajoituksista johtuen muita tavaroita ei lisätty peliin.
 <br>
@@ -15,3 +15,8 @@ Pelissä ohjataan pelaajaa nuolinäppäimillä, ohjeet ovat näkyvissä myös p�
 <h4>Bugit</h4>
 Pelissä ei pitäisi olla jäljellä mitään bugeja, viimeisimmissä versiossa viidakkotasossa pelaaja toisinaan luotiin virheellisesti kentän keskelle lähes kentän loppuosaan. Tämän bugin pitäisi olla kuitenkin korjaantunut.
 <h4>Lähteet</h4>
+<p><b>Äänet</b><br>Putoavien kivien ja kuolevan pelaajan äänitehosteet: <a href="http://soundbible.com/">Soundbible</a><br>
+Tasojen musiikit: <a href="http://incompetech.com/music/royalty-free/">Incompetech</a></p>
+<p><b>Kuvat</b><br>Kiipelijäsprite: <a href="http://www.vg-resource.com/post-230401.html">The VG Resource</a><br>
+Tasojen kuvat on luotu Photoshopilla käyttäen custom shapeja: <a href="http://www.brusheezy.com/shapes/36053-24-african-animal-shapes">Brusheezy</a><br>
+Menujen taustatekstuuri: <a href="http://subtlepatterns.com/dark-sharp-edges/">Subtlepatterns</a></p>
